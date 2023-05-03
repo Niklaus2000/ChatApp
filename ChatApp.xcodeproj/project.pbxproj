@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		90106FE929F806FD007A4CA3 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90106FE829F806FD007A4CA3 /* MessageView.swift */; };
 		90586AD429FAF3C800950329 /* SwitchModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90586AD329FAF3C800950329 /* SwitchModeView.swift */; };
-		909D481A29F00ACB00855296 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909D481929F00ACB00855296 /* User.swift */; };
+		909D481A29F00ACB00855296 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909D481929F00ACB00855296 /* Message.swift */; };
 		90CA3D9A29FBB9C700D1D9F3 /* SwitchModeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CA3D9929FBB9C700D1D9F3 /* SwitchModeConstants.swift */; };
 		90CA3D9D29FBCCDA00D1D9F3 /* MessageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CA3D9C29FBCCDA00D1D9F3 /* MessageConstants.swift */; };
 		90DB593829EF04990094FAB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB593729EF04990094FAB5 /* AppDelegate.swift */; };
@@ -21,7 +21,11 @@
 		90DB594F29EF049E0094FAB5 /* ChatAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB594E29EF049E0094FAB5 /* ChatAppTests.swift */; };
 		90DB595929EF049E0094FAB5 /* ChatAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB595829EF049E0094FAB5 /* ChatAppUITests.swift */; };
 		90DB595B29EF049E0094FAB5 /* ChatAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB595A29EF049E0094FAB5 /* ChatAppUITestsLaunchTests.swift */; };
+		90E4FE8A2A011118006CE1ED /* SendButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E4FE892A011118006CE1ED /* SendButtonView.swift */; };
+		90E4FE8C2A01136C006CE1ED /* SendButtonConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E4FE8B2A01136C006CE1ED /* SendButtonConstants.swift */; };
+		90E4FE982A0242BF006CE1ED /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E4FE972A0242BF006CE1ED /* MessageTableViewCell.swift */; };
 		90EFABEE29FEA319003452D2 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EFABED29FEA319003452D2 /* DividerView.swift */; };
+		90F61BF22A00017200A5494B /* ViewControllerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F61BF12A00017200A5494B /* ViewControllerConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +48,7 @@
 /* Begin PBXFileReference section */
 		90106FE829F806FD007A4CA3 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		90586AD329FAF3C800950329 /* SwitchModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchModeView.swift; sourceTree = "<group>"; };
-		909D481929F00ACB00855296 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		909D481929F00ACB00855296 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		90CA3D9929FBB9C700D1D9F3 /* SwitchModeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchModeConstants.swift; sourceTree = "<group>"; };
 		90CA3D9C29FBCCDA00D1D9F3 /* MessageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageConstants.swift; sourceTree = "<group>"; };
 		90DB593429EF04990094FAB5 /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,7 +64,11 @@
 		90DB595429EF049E0094FAB5 /* ChatAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		90DB595829EF049E0094FAB5 /* ChatAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUITests.swift; sourceTree = "<group>"; };
 		90DB595A29EF049E0094FAB5 /* ChatAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		90E4FE892A011118006CE1ED /* SendButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendButtonView.swift; sourceTree = "<group>"; };
+		90E4FE8B2A01136C006CE1ED /* SendButtonConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendButtonConstants.swift; sourceTree = "<group>"; };
+		90E4FE972A0242BF006CE1ED /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		90EFABED29FEA319003452D2 /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
+		90F61BF12A00017200A5494B /* ViewControllerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,11 +116,10 @@
 		909D481729F0092700855296 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				90CA3D9B29FBCB7200D1D9F3 /* SendMessageView */,
+				90E4FE952A011FB0006CE1ED /* sendCustomView */,
+				90F61BEF29FFFEDA00A5494B /* DivederView */,
 				90586AB029FA85D100950329 /* switchView */,
-				90DB593D29EF04990094FAB5 /* Main.storyboard */,
-				90DB593B29EF04990094FAB5 /* ViewController.swift */,
-				90EFABED29FEA319003452D2 /* DividerView.swift */,
+				90F61BF02A0000EF00A5494B /* ViewController */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -120,7 +127,7 @@
 		909D481829F00AAC00855296 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				909D481929F00ACB00855296 /* User.swift */,
+				909D481929F00ACB00855296 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -128,6 +135,7 @@
 		90CA3D9B29FBCB7200D1D9F3 /* SendMessageView */ = {
 			isa = PBXGroup;
 			children = (
+				90E4FE882A0110D4006CE1ED /* sendButton */,
 				90106FE829F806FD007A4CA3 /* MessageView.swift */,
 				90CA3D9C29FBCCDA00D1D9F3 /* MessageConstants.swift */,
 			);
@@ -157,6 +165,7 @@
 		90DB593629EF04990094FAB5 /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				90E4FE962A01AFF4006CE1ED /* DataSource */,
 				909D481829F00AAC00855296 /* Model */,
 				909D481629F008FB00855296 /* Presentation */,
 				90DB596829EF21900094FAB5 /* APP */,
@@ -191,6 +200,57 @@
 				90DB593729EF04990094FAB5 /* AppDelegate.swift */,
 			);
 			path = APP;
+			sourceTree = "<group>";
+		};
+		90E4FE872A00FD5A006CE1ED /* ViewControllerConstannts */ = {
+			isa = PBXGroup;
+			children = (
+				90F61BF12A00017200A5494B /* ViewControllerConstants.swift */,
+			);
+			path = ViewControllerConstannts;
+			sourceTree = "<group>";
+		};
+		90E4FE882A0110D4006CE1ED /* sendButton */ = {
+			isa = PBXGroup;
+			children = (
+				90E4FE892A011118006CE1ED /* SendButtonView.swift */,
+				90E4FE8B2A01136C006CE1ED /* SendButtonConstants.swift */,
+			);
+			path = sendButton;
+			sourceTree = "<group>";
+		};
+		90E4FE952A011FB0006CE1ED /* sendCustomView */ = {
+			isa = PBXGroup;
+			children = (
+				90CA3D9B29FBCB7200D1D9F3 /* SendMessageView */,
+			);
+			path = sendCustomView;
+			sourceTree = "<group>";
+		};
+		90E4FE962A01AFF4006CE1ED /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		90F61BEF29FFFEDA00A5494B /* DivederView */ = {
+			isa = PBXGroup;
+			children = (
+				90EFABED29FEA319003452D2 /* DividerView.swift */,
+			);
+			path = DivederView;
+			sourceTree = "<group>";
+		};
+		90F61BF02A0000EF00A5494B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				90E4FE872A00FD5A006CE1ED /* ViewControllerConstannts */,
+				90DB593D29EF04990094FAB5 /* Main.storyboard */,
+				90DB593B29EF04990094FAB5 /* ViewController.swift */,
+				90E4FE972A0242BF006CE1ED /* MessageTableViewCell.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,15 +384,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90E4FE8A2A011118006CE1ED /* SendButtonView.swift in Sources */,
 				90586AD429FAF3C800950329 /* SwitchModeView.swift in Sources */,
 				90EFABEE29FEA319003452D2 /* DividerView.swift in Sources */,
+				90F61BF22A00017200A5494B /* ViewControllerConstants.swift in Sources */,
 				90106FE929F806FD007A4CA3 /* MessageView.swift in Sources */,
-				909D481A29F00ACB00855296 /* User.swift in Sources */,
+				909D481A29F00ACB00855296 /* Message.swift in Sources */,
 				90DB593C29EF04990094FAB5 /* ViewController.swift in Sources */,
 				90DB593829EF04990094FAB5 /* AppDelegate.swift in Sources */,
 				90CA3D9A29FBB9C700D1D9F3 /* SwitchModeConstants.swift in Sources */,
 				90CA3D9D29FBCCDA00D1D9F3 /* MessageConstants.swift in Sources */,
+				90E4FE982A0242BF006CE1ED /* MessageTableViewCell.swift in Sources */,
 				90DB593A29EF04990094FAB5 /* SceneDelegate.swift in Sources */,
+				90E4FE8C2A01136C006CE1ED /* SendButtonConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

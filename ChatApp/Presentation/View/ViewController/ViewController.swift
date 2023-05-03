@@ -8,44 +8,59 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     
     private lazy var stackView = UIStackView(arrangedSubviews: [sendMessageView, receiverMessageView])
-    private let sendMessageView = MessageView()
+    private lazy var sendMessageView = MessageView()
     private let receiverMessageView = MessageView()
     private let switchButtonView = SwitchModeView()
     private let dividerView = DividerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpSwitchButtonView()
+        addSubview()
         setUpStackView()
+        setUpStackViewConstraint()
+        setUpSwitchButtonViewConstraint()
+        setUpDiverViewConstraint()
         switchButtonView.delegate = self
+        
     }
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//    }
     
     private func setUpStackView() {
-        stackView.axis =  .vertical
+        stackView.axis = .vertical
         stackView.distribution = .fillEqually
     }
     
-    private func setUpSwitchButtonView() {
-        view.addSubview(switchButtonView)
-        view.addSubview(stackView)
-        view.addSubview(dividerView)
-        
+    private func addSubview() {
+        [dividerView, switchButtonView, stackView, dividerView].forEach { view in
+            self.view.addSubview(view)
+        }
         [switchButtonView, stackView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        
+    }
+    
+    private func setUpSwitchButtonViewConstraint() {
         NSLayoutConstraint.activate([
-            switchButtonView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            switchButtonView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            switchButtonView.widthAnchor.constraint(equalToConstant: 54),
-            switchButtonView.heightAnchor.constraint(equalToConstant: 54),
+            switchButtonView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: CGFloat(Constants.switchButtontopAnchor)),
+            switchButtonView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: CGFloat(Constants.switchButtontTrailingAnchor)),
+            switchButtonView.widthAnchor.constraint(equalToConstant: CGFloat(Constants.switchButtontWidthAnchor)),
+            switchButtonView.heightAnchor.constraint(equalToConstant: CGFloat(Constants.switchButtontHHeightAnchor)),
+        ])
+    }
+    
+    private func setUpStackViewConstraint() {
+        NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: switchButtonView.bottomAnchor),
-            dividerView.topAnchor.constraint(equalTo: sendMessageView.bottomAnchor),
-            dividerView.bottomAnchor.constraint(equalTo: receiverMessageView.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+    }
+    
+    private func setUpDiverViewConstraint() {
+        NSLayoutConstraint.activate([
             dividerView.topAnchor.constraint(equalTo: sendMessageView.bottomAnchor),
             dividerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             dividerView.widthAnchor.constraint(equalTo: view.widthAnchor),
@@ -65,9 +80,6 @@ extension ViewController: SwitchModeViewDelegate {
             self.receiverMessageView.backgroundColor = .blue
         }
     }
-    
-
-    
-    
 }
-  
+
+

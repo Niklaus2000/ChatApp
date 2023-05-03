@@ -10,6 +10,7 @@ import UIKit
 
 extension MessageView {
     enum Constants {
+        
         static let textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         static let textFontSize = UIFont.systemFont(ofSize: 16)
         static let text = "დაწერე შეტყობინება..."
@@ -27,5 +28,9 @@ extension MessageView {
         static let textViewBottomAnchor = 8
         static let textViewTopAnchor = 5
         static let tableViewBottom = 16
+        static let sendButtonViewWidthAnchor = 32
+        
+        
     }
 }
+

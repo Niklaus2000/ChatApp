@@ -18,13 +18,17 @@ class DividerView: UIView {
             NSLayoutConstraint.activate([
                 centerXAnchor.constraint(equalTo: superview.centerXAnchor),
                 topAnchor.constraint(equalTo: superview.topAnchor),
-                bottomAnchor.constraint(equalTo: superview.topAnchor, constant: 6),
+                bottomAnchor.constraint(equalTo: superview.topAnchor, constant: CGFloat(Constants.bottomAnchor) ),
                 widthAnchor.constraint(equalTo: superview.widthAnchor)
             ])
         }
     }
-    
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("init(cod er:) has not been implemented")
+    }
+}
+extension DividerView {
+    enum Constants {
+        static let bottomAnchor = 30
     }
 }
