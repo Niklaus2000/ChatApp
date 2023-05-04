@@ -24,10 +24,9 @@ class ViewController: UIViewController {
         setUpDiverViewConstraint()
         switchButtonView.delegate = self
         
+        
+        
     }
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//    }
     
     private func setUpStackView() {
         stackView.axis = .vertical
@@ -35,7 +34,7 @@ class ViewController: UIViewController {
     }
     
     private func addSubview() {
-        [dividerView, switchButtonView, stackView, dividerView].forEach { view in
+        [dividerView, switchButtonView, stackView].forEach { view in
             self.view.addSubview(view)
         }
         [switchButtonView, stackView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
@@ -61,9 +60,15 @@ class ViewController: UIViewController {
     
     private func setUpDiverViewConstraint() {
         NSLayoutConstraint.activate([
+//            dividerView.topAnchor.constraint(equalTo: sendMessageView.bottomAnchor),
+//            dividerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            dividerView.widthAnchor.constraint(equalTo: view.widthAnchor),
+//            dividerView.heightAnchor.constraint(equalToConstant: 6),
+            
             dividerView.topAnchor.constraint(equalTo: sendMessageView.bottomAnchor),
-            dividerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            dividerView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            dividerView.bottomAnchor.constraint(equalTo: receiverMessageView.topAnchor),
+            dividerView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            dividerView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
             dividerView.heightAnchor.constraint(equalToConstant: 6)
         ])
     }
@@ -71,14 +76,28 @@ class ViewController: UIViewController {
 
 extension ViewController: SwitchModeViewDelegate {
     func switchModeView(with state: ButtonState) {
-        switch state {
-        case .light:
-            self.sendMessageView.backgroundColor = .white
-            self.receiverMessageView.backgroundColor = .white
-        case .dark:
-            self.sendMessageView.backgroundColor = .blue
-            self.receiverMessageView.backgroundColor = .blue
-        }
+        //        switch state {
+        //        case .light:
+        //            self.sendMessageView.backgroundColor = .white
+        //            self.receiverMessageView.backgroundColor = .white
+        //            self.view.backgroundColor = .white
+        //        case .dark:
+        //            self.sendMessageView.backgroundColor = .blue
+        //            self.receiverMessageView.backgroundColor = .blue
+        //            self.view.backgroundColor = .blue
+        //
+        //        }
+        //        sender.isSelected.toggle()
+        //        sender.isSelected
+        //        ? delegate?.switchModeView(with: .light)
+        //        : delegate?.switchModeView(with: .dark)
+        //         }
+        
+        sendMessageView.backgroundColor = state == .light ? .white : .blue
+        receiverMessageView.backgroundColor = state == .light ? .white : .blue
+        view.backgroundColor = state == .light ? .white : .blue
+        
+        
     }
 }
 

@@ -13,14 +13,6 @@ protocol SwitchModeViewDelegate: AnyObject {
 class SwitchModeView: UIButton {
     
     weak var delegate: SwitchModeViewDelegate?
-
-    private lazy var switchMode: UIButton = {
-        let switchButton = UIButton(type: .custom)
-        switchButton.setImage(UIImage(named: LocalConstants.switchLightImage), for: .normal)
-        switchButton.setImage(UIImage(named: LocalConstants.switchDarkImage), for: .selected)
-        switchButton.translatesAutoresizingMaskIntoConstraints = false
-        return switchButton
-    }()
     
     override init(frame: CGRect){
         super.init(frame: frame)
@@ -32,15 +24,10 @@ class SwitchModeView: UIButton {
     }
     
     private func setUpConstraint() {
-        addSubview(switchMode)
-        NSLayoutConstraint.activate([
-            switchMode.widthAnchor.constraint(equalTo: widthAnchor),
-            switchMode.heightAnchor.constraint(equalTo: heightAnchor),
-            switchMode.centerXAnchor.constraint(equalTo: centerXAnchor),
-            switchMode.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
-        
-        switchMode.addTarget(self, action: #selector(switchModeTapped), for: .touchUpInside)
+        setImage(UIImage(named: LocalConstants.switchDarkImage), for: .selected)
+        setImage(UIImage(named: LocalConstants.switchLightImage), for: .normal)
+        translatesAutoresizingMaskIntoConstraints = false
+        addTarget(self, action: #selector(switchModeTapped), for: .touchUpInside)
     }
     
     @objc private func switchModeTapped(_ sender: UIButton) {
