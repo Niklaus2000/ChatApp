@@ -9,30 +9,29 @@ import Foundation
 import UIKit
 
 final class MessageTextView: UIView {
-    private var textViewHeightConstraint: NSLayoutConstraint?
-    private var maxlines = 5
     
+    private var textViewHeightConstraint: NSLayoutConstraint?
     private lazy var inputContainerView: UIView = {
         let inputContainerView = UIView()
         inputContainerView.translatesAutoresizingMaskIntoConstraints = false
-        inputContainerView.layer.cornerRadius = CGFloat(Constants.cornerRadius)
-        inputContainerView.layer.borderWidth = CGFloat(Constants.borderWith)
-        inputContainerView.layer.borderColor = UIColor.lightGray.cgColor
+        inputContainerView.layer.cornerRadius = Constants.InputContainenrView.cornerRadius
+        inputContainerView.layer.borderWidth = Constants.InputContainenrView.borderWith
+        inputContainerView.layer.borderColor = Constants.InputContainenrView.viewBorderUIColor
         return inputContainerView
     }()
     
     private lazy var textView: UITextView = {
         let textView = UITextView()
-        textView.textContainerInset = Constants.textContainerInset
+        textView.textContainerInset = Constants.TextView.textContainerInset
         textView.font = Constants.TextView.textFontSize
         textView.isScrollEnabled = false
         textView.textAlignment = .left
         textView.backgroundColor = .clear
-        textView.text = Constants.text
-        textView.textColor = UIColor.lightGray
+        textView.text = Constants.TextView.text
+        textView.textColor = .lightGray
         textView.isScrollEnabled = true
         textView.delegate = self
-        textView.textContainer.maximumNumberOfLines = maxlines
+        textView.textContainer.maximumNumberOfLines = Constants.TextView.maxLines
         textView.textContainer.lineBreakMode = .byTruncatingTail
         textView.translatesAutoresizingMaskIntoConstraints  = false
         return textView
@@ -40,18 +39,18 @@ final class MessageTextView: UIView {
     
     private lazy var sendButtonView: UIButton = {
         let sendButton = UIButton()
-        sendButton.setImage(Constants.image, for: .normal)
+        sendButton.setImage(Constants.ButtonView.image, for: .normal)
         // sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         return sendButton
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(inputContainerView)
         inputContainerView.addSubview(textView)
         inputContainerView.addSubview(sendButtonView)
-        
         setUpInputContainerViewConstraint()
         setUpTextViewConstraint()
         setUpButtonViewConstraint()
@@ -63,40 +62,46 @@ final class MessageTextView: UIView {
     
     private func setUpInputContainerViewConstraint() {
         NSLayoutConstraint.activate([
-            inputContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: CGFloat(Constants.inputContainerLeadingAnchor)),
-            inputContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: CGFloat(Constants.inputContainerTrailingAnchor)),
-            inputContainerView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
-            inputContainerView.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(Constants.inputContainerHeightAnchor)),
-        ])
+            inputContainerView.topAnchor.constraint(equalTo: topAnchor),
+            inputContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.InputContainenrView.inputContainerLeadingAnchor),
+            inputContainerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            inputContainerView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: Constants.InputContainenrView.inputContainerTrailingAnchor)
+            ])
     }
     
     private func  setUpTextViewConstraint() {
-        textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: 44)
+        textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: Constants.TextView.textViewHeightConstraint)
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: 10),
-            textView.leadingAnchor.constraint(equalTo: inputContainerView.leadingAnchor, constant: 22),
-            textView.trailingAnchor.constraint(equalTo: sendButtonView.leadingAnchor, constant: -10),
+            textView.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: Constants.TextView.textViewTopAnchor),
             textView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor),
+            textView.leadingAnchor.constraint(equalTo: inputContainerView.leadingAnchor, constant: Constants.TextView.textViewLeadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: sendButtonView.leadingAnchor, constant: Constants.TextView.textViewTrailingAnchor),
             textViewHeightConstraint!,
         ])
     }
     
     private func  setUpButtonViewConstraint() {
         NSLayoutConstraint.activate([
-            sendButtonView.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: 10),
-            sendButtonView.trailingAnchor.constraint(equalTo: inputContainerView.trailingAnchor, constant: -10),
-            sendButtonView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor, constant: -10),
-            sendButtonView.widthAnchor.constraint(equalToConstant: CGFloat(Constants.sendButtonViewWidthAnchor))
+            sendButtonView.trailingAnchor.constraint(equalTo: inputContainerView.trailingAnchor, constant: Constants.ButtonView.sendButtonViewTrailingAnchor),
+            sendButtonView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor, constant: Constants.ButtonView.sendButtonViewBottomAnchor),
+            sendButtonView.widthAnchor.constraint(equalToConstant: CGFloat(Constants.ButtonView.sendButtonViewWidthAnchor)),
+            sendButtonView.heightAnchor.constraint(equalToConstant: CGFloat(Constants.ButtonView.sendButtonViewHeightAnchor))
         ])
     }
 }
+
 extension MessageTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let size = CGSize(width: textView.frame.width, height: .infinity)
         let height = textView.sizeThatFits(size).height
-        let maxHeight = CGFloat(Constants.maxLines) * textView.font!.lineHeight
-        textViewHeightConstraint?.constant = max(min(height, maxHeight), 44)
+        let maxHeight = CGFloat(Constants.TextView.maxLines) * textView.font!.lineHeight
+        textViewHeightConstraint?.constant = max(min(height, maxHeight), Constants.TextView.textViewHeightConstraint)
         textView.isScrollEnabled = textViewHeightConstraint?.constant ?? 0 >= maxHeight
+        
+        textView.text = textView.text.isEmpty ? "დაწერე შეტობინენბა" : textView.text
+        textView.textColor = textView.text.isEmpty ? UIColor.lightGray : UIColor.black
+        textView.text = textView.text.isEmpty ? "დაწერე შეტობინენბა" : textView.text
+        textView.textColor = textView.text == "დაწერე შეტობინენბა" ? UIColor.lightGray : UIColor.black
     }
 }
 

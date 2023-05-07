@@ -10,7 +10,7 @@ import UIKit
 
 extension SwitchModeView {
     struct LocalConstants  {
-        static let switchDarkImage = "light_image_view"
-        static let switchLightImage = "dark_image_view"
+        static let switchDarkImage = UIImage(named: "dark_image_view")
+        static let switchLightImage = UIImage(named: "light_image_view")
     }
 }

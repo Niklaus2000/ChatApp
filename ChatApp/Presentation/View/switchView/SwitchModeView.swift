@@ -10,13 +10,14 @@ protocol SwitchModeViewDelegate: AnyObject {
     func switchModeView(with state: ButtonState)
 }
 
-class SwitchModeView: UIButton {
+final class SwitchModeView: UIButton {
     
     weak var delegate: SwitchModeViewDelegate?
     
     override init(frame: CGRect){
         super.init(frame: frame)
         setUpConstraint()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -24,8 +25,8 @@ class SwitchModeView: UIButton {
     }
     
     private func setUpConstraint() {
-        setImage(UIImage(named: LocalConstants.switchDarkImage), for: .selected)
-        setImage(UIImage(named: LocalConstants.switchLightImage), for: .normal)
+        setImage(LocalConstants.switchLightImage, for: .normal)
+        setImage(LocalConstants.switchDarkImage, for: .selected)
         translatesAutoresizingMaskIntoConstraints = false
         addTarget(self, action: #selector(switchModeTapped), for: .touchUpInside)
     }

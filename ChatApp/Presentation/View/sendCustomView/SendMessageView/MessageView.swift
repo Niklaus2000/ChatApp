@@ -40,9 +40,9 @@ final class MessageView: UIView {
     
     private func setUpmessageTextView() {
         NSLayoutConstraint.activate([
-            messageTextView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: CGFloat(Constants.inputContainerLeadingAnchor)),
-            messageTextView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: CGFloat(Constants.inputContainerTrailingAnchor)),
-            messageTextView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            messageTextView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.inputContainerLeadingAnchor),
+            messageTextView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Constants.inputContainerTrailingAnchor),
+            messageTextView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
             messageTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.inputContainerHeightAnchor),
         ])
     }

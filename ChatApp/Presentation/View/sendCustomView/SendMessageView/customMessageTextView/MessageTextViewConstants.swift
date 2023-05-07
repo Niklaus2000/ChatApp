@@ -10,29 +10,34 @@ import UIKit
 
 extension MessageTextView {
     enum Constants {
+       //Mark
+        enum InputContainenrView {
+            static let viewBorderUIColor = UIColor(red: 0.62, green: 0.38, blue: 1.00, alpha: 1.00).cgColor
+            static let borderWith: CGFloat = 1
+            static let cornerRadius: CGFloat = 28
+            static let inputContainerLeadingAnchor: CGFloat = 16
+            static let inputContainerTrailingAnchor: CGFloat = -16
+        }
         
-        static let textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
-//        static let textFontSize = UIFont.systemFont(ofSize: 16)
-        static let text = "დაწერე შეტყობინება..."
-        static let cornerRadius  = 28
-        static let viewBorderUIColor = CGColor(red: 0.62, green: 0.38, blue: 1.00, alpha: 1.00)
-        static let borderWith = 1
-        static let textColor = UIColor.lightGray
-        static let image = UIImage(named: "send_button_image")
-        static let inputContainerLeadingAnchor = 16
-        static let inputContainerTrailingAnchor = -16
-        static let inputContainerHeightAnchor = 56
-        static let inputContainerBottomAnchor = 16
-        static let tableViewBottom = 16
-        static let sendButtonViewWidthAnchor = 32
-        static let maxLines = 5
-        ///
+        
         enum TextView {
-            static let textViewTrailingAnchor = -5
-            static let textViewLeadingngAnchor = 5
-            static let textViewBottomAnchor = 8
-            static let textViewTopAnchor = 5
+            static let textContainerInset = UIEdgeInsets(top: 15, left: 18, bottom: 15, right: 5)
+            static let textViewTopAnchor: CGFloat =  10
+            static let textViewBottomAnchor: CGFloat =  -10
+            static let textViewLeadingAnchor: CGFloat = 10
+            static let textViewTrailingAnchor: CGFloat = -5
             static let textFontSize = UIFont.systemFont(ofSize: 16)
+            static let textViewHeightConstraint: CGFloat = 56
+            static let maxLines = 5
+            static let text = "დაწერე შეტყობინება..."
+        }
+        
+        enum ButtonView {
+            static let sendButtonViewWidthAnchor: CGFloat = 32
+            static let sendButtonViewHeightAnchor: CGFloat = 32
+            static let sendButtonViewBottomAnchor: CGFloat = -12
+            static let sendButtonViewTrailingAnchor: CGFloat = -10
+            static let image = UIImage(named: "send_button_image")
         }
     }
 }
