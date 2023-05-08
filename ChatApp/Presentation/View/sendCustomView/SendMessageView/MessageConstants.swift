@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-extension MessageView {
-   
+//MARK: Extension
+extension MessageView {   
     enum Constants {
         static let inputContainerLeadingAnchor: CGFloat = 16
         static let inputContainerTrailingAnchor: CGFloat = -16

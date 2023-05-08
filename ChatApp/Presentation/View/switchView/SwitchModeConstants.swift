@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+//MARK: Extension
 extension SwitchModeView {
     struct LocalConstants  {
         static let switchDarkImage = UIImage(named: "dark_image_view")

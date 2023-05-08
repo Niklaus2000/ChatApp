@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 
 final class MessageTextView: UIView {
-    
+    //MARK: Variable
     private var textViewHeightConstraint: NSLayoutConstraint?
+   
+    //MARK: Properties
     private lazy var inputContainerView: UIView = {
         let inputContainerView = UIView()
         inputContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +30,7 @@ final class MessageTextView: UIView {
         textView.textAlignment = .left
         textView.backgroundColor = .clear
         textView.text = Constants.TextView.text
-        textView.textColor = .lightGray
+        textView.textColor = Constants.TextView.placeholderColor
         textView.isScrollEnabled = true
         textView.delegate = self
         textView.textContainer.maximumNumberOfLines = Constants.TextView.maxLines
@@ -45,12 +47,11 @@ final class MessageTextView: UIView {
         return sendButton
     }()
     
+    //MARK: init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(inputContainerView)
-        inputContainerView.addSubview(textView)
-        inputContainerView.addSubview(sendButtonView)
+        setUpView()
         setUpInputContainerViewConstraint()
         setUpTextViewConstraint()
         setUpButtonViewConstraint()
@@ -60,15 +61,24 @@ final class MessageTextView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Add subView
+    private func setUpView() {
+        addSubview(inputContainerView)
+        inputContainerView.addSubview(textView)
+        inputContainerView.addSubview(sendButtonView)
+    }
+    
+    //MARK: ContainerView constraint
     private func setUpInputContainerViewConstraint() {
         NSLayoutConstraint.activate([
             inputContainerView.topAnchor.constraint(equalTo: topAnchor),
             inputContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.InputContainenrView.inputContainerLeadingAnchor),
             inputContainerView.bottomAnchor.constraint(equalTo: bottomAnchor),
             inputContainerView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: Constants.InputContainenrView.inputContainerTrailingAnchor)
-            ])
+        ])
     }
     
+    //MARK: TextView constraint
     private func  setUpTextViewConstraint() {
         textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: Constants.TextView.textViewHeightConstraint)
         NSLayoutConstraint.activate([
@@ -80,6 +90,7 @@ final class MessageTextView: UIView {
         ])
     }
     
+    //MARK: ButtonView constraint
     private func  setUpButtonViewConstraint() {
         NSLayoutConstraint.activate([
             sendButtonView.trailingAnchor.constraint(equalTo: inputContainerView.trailingAnchor, constant: Constants.ButtonView.sendButtonViewTrailingAnchor),
@@ -90,6 +101,7 @@ final class MessageTextView: UIView {
     }
 }
 
+//MARK: Extension
 extension MessageTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let size = CGSize(width: textView.frame.width, height: .infinity)
@@ -97,11 +109,20 @@ extension MessageTextView: UITextViewDelegate {
         let maxHeight = CGFloat(Constants.TextView.maxLines) * textView.font!.lineHeight
         textViewHeightConstraint?.constant = max(min(height, maxHeight), Constants.TextView.textViewHeightConstraint)
         textView.isScrollEnabled = textViewHeightConstraint?.constant ?? 0 >= maxHeight
-        
-        textView.text = textView.text.isEmpty ? "დაწერე შეტობინენბა" : textView.text
-        textView.textColor = textView.text.isEmpty ? UIColor.lightGray : UIColor.black
-        textView.text = textView.text.isEmpty ? "დაწერე შეტობინენბა" : textView.text
-        textView.textColor = textView.text == "დაწერე შეტობინენბა" ? UIColor.lightGray : UIColor.black
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == Constants.TextView.placeholderColor {
+            textView.text = ""
+            textView.textColor = Constants.TextView.lightModeTextColor
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = Constants.TextView.text
+            textView.textColor = Constants.TextView.lightModeTextColor
+        }
     }
 }
 

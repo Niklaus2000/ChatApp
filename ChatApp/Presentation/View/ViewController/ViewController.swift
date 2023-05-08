@@ -8,14 +8,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+    //MARK: Properties
     private lazy var stackView = UIStackView(arrangedSubviews: [topMessageView, dividerView, bottomMessageView])
     private lazy var topMessageView = MessageView()
     private let bottomMessageView = MessageView()
     private let switchButtonView = SwitchModeView()
     private lazy var dividerView = UIView()
     
-    
+    //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubview()
@@ -27,11 +27,13 @@ class ViewController: UIViewController {
         dividerView.backgroundColor = .yellow
     }
     
+    //MARK: StackView
     private func setUpStackView() {
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
     }
     
+    //MARK: Add subView
     private func addSubview() {
         [dividerView, switchButtonView, stackView].forEach { view in
             self.view.addSubview(view)
@@ -40,6 +42,7 @@ class ViewController: UIViewController {
    
     }
     
+    //MARK: SwitchButtonView Constraint
     private func setUpSwitchButtonViewConstraint() {
         NSLayoutConstraint.activate([
             switchButtonView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.switchButtontopAnchor),
@@ -49,6 +52,7 @@ class ViewController: UIViewController {
         ])
     }
     
+    //MARK: StackView Constraint
     private func setUpStackViewConstraint() {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: switchButtonView.bottomAnchor),
@@ -58,22 +62,24 @@ class ViewController: UIViewController {
         ])
     }
     
+    //MARK: DivederView Constraint
     private func setUpDiverViewConstraint() {
         NSLayoutConstraint.activate([
-            dividerView.topAnchor.constraint(equalTo: topMessageView.bottomAnchor, constant: 6),
+            dividerView.topAnchor.constraint(equalTo: topMessageView.bottomAnchor, constant: 30),
             dividerView.bottomAnchor.constraint(equalTo: bottomMessageView.topAnchor),
             dividerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dividerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            dividerView.heightAnchor.constraint(equalToConstant: 6)
+            dividerView.heightAnchor.constraint(equalToConstant: Constants.dividerViewHeightAnchor)
         ])
     }
 }
 
+//MARK: Extension
 extension ViewController: SwitchModeViewDelegate {
     func switchModeView(with state: ButtonState) {
         topMessageView.backgroundColor = state == .dark ? .white : Constants.backGroundColor
-        bottomMessageView.backgroundColor = state == .dark ? .white :  Constants.backGroundColor
-        view.backgroundColor = state == .dark ? .white :  Constants.backGroundColor
+        bottomMessageView.backgroundColor = state == .dark ? .white : Constants.backGroundColor
+        view.backgroundColor = state == .dark ? .white : Constants.backGroundColor
     }
 }
 

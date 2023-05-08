@@ -12,8 +12,6 @@ class MessageTableViewCell: UITableViewCell {
    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
-            
-    
         }
     
     required init?(coder: NSCoder) {
@@ -29,5 +27,4 @@ class MessageTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
     }
-
 }

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+//MARK: Extension
 extension ViewController {
     enum Constants {
         static let switchButtontopAnchor: CGFloat = 8

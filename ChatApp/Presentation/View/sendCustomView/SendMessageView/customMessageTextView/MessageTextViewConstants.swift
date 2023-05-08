@@ -8,9 +8,11 @@
 import Foundation
 import UIKit
 
+//MARK: MessageTextView constraint
 extension MessageTextView {
     enum Constants {
-       //Mark
+    
+        //MARK: InputContainenrView constant
         enum InputContainenrView {
             static let viewBorderUIColor = UIColor(red: 0.62, green: 0.38, blue: 1.00, alpha: 1.00).cgColor
             static let borderWith: CGFloat = 1
@@ -19,7 +21,7 @@ extension MessageTextView {
             static let inputContainerTrailingAnchor: CGFloat = -16
         }
         
-        
+        //MARK: TexxtView constant
         enum TextView {
             static let textContainerInset = UIEdgeInsets(top: 15, left: 18, bottom: 15, right: 5)
             static let textViewTopAnchor: CGFloat =  10
@@ -30,8 +32,11 @@ extension MessageTextView {
             static let textViewHeightConstraint: CGFloat = 56
             static let maxLines = 5
             static let text = "დაწერე შეტყობინება..."
+            static let placeholderColor = UIColor(red: 0.884, green: 0.884,  blue: 0.884,alpha: 1)
+            static let lightModeTextColor = UIColor(red: 0.098,  green: 0.098, blue: 0.098,   alpha: 1)
         }
         
+        //MARK: ButtonView constant
         enum ButtonView {
             static let sendButtonViewWidthAnchor: CGFloat = 32
             static let sendButtonViewHeightAnchor: CGFloat = 32

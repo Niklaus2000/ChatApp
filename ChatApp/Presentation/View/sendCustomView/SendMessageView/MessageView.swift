@@ -1,6 +1,7 @@
 import UIKit
 
 final class MessageView: UIView {
+    //MARK: Property
     private lazy var messageTextView = MessageTextView()
     
     private lazy var tableView: UITableView = {
@@ -13,6 +14,7 @@ final class MessageView: UIView {
         return tableView
     }()
     
+    //MARK: Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -29,6 +31,7 @@ final class MessageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: TableView constraint
     private func setUpTableViewConstraint() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
@@ -38,6 +41,7 @@ final class MessageView: UIView {
         ])
     }
     
+    //MARK: MessageView constraint
     private func setUpmessageTextView() {
         NSLayoutConstraint.activate([
             messageTextView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.inputContainerLeadingAnchor),
@@ -48,6 +52,7 @@ final class MessageView: UIView {
     }
 }
 
+//MARK: Extension tableView
 extension MessageView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
