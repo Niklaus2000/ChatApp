@@ -26,8 +26,14 @@ class ViewController: UIViewController {
         setUpStackViewConstraints()
         setUpSwitchButtonViewConstraints()
         setUpDiverViewConstraints()
-        setUpStatusBar()
+        //setUpStatusBar()
+        
     }
+    
+    // MARK: StatusBar Style
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+           return statusBarStyle
+       }
     
     // MARK: StackView
     private func setUpStackView() {
@@ -42,16 +48,6 @@ class ViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-    
-     private  func setUpStatusBar() {
-         var prefersStatusBarHidden: Bool {
-           return false
-         }
-
-         var preferredStatusBarStyle: UIStatusBarStyle {
-          return statusBarStyle
-         }
-     }
     
     // MARK: SwitchButtonView Constraint
     private func setUpSwitchButtonViewConstraints() {
@@ -93,11 +89,12 @@ extension ViewController: SwitchModeViewDelegate {
         switch state {
         case .light:
             setUpBackgroundColor(with: Constants.SwitchButtonView.backGroundColor)
-            setUpStatusBar()
+            self.statusBarStyle = .lightContent
         case .dark:
             setUpBackgroundColor(with: .white)
-            setUpStatusBar()
+            self.statusBarStyle = .darkContent
         }
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     private func setUpBackgroundColor(with color: UIColor) {

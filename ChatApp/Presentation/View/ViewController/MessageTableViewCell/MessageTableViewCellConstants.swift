@@ -2,7 +2,7 @@
 //  MessageTableViewCellConstannts.swift
 //  ChatApp
 //
-//  Created by MacBoobPro on 18.05.23.
+//  Created by Nika Gogichashvili on 18.05.23.
 //
 
 import UIKit
