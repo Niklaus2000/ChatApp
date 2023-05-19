@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  ChatApp
 //
-//  Created by MacBoobPro on 18.04.23.
+//  Created by Nika Gogichashvili on 18.04.23.
 //
 
 import UIKit
@@ -10,7 +10,6 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
       

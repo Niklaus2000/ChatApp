@@ -2,58 +2,70 @@
 //  ViewController.swift
 //  ChatApp
 //
-//  Created by MacBoobPro on 18.04.23.
+//  Created by Nika Gogichashvili on 18.04.23.
 //
 
 import UIKit
 
 class ViewController: UIViewController {
-    //MARK: Properties
+    
+    // MARK: Properties
     private lazy var stackView = UIStackView(arrangedSubviews: [topMessageView, dividerView, bottomMessageView])
-    private lazy var topMessageView = MessageView()
+    private let topMessageView = MessageView()
     private let bottomMessageView = MessageView()
     private let switchButtonView = SwitchModeView()
-    private lazy var dividerView = UIView()
+    private let dividerView = UIView()
+    private var statusBarStyle: UIStatusBarStyle = .darkContent
     
-    //MARK: ViewDidLoad
+    // MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSubview()
+        
+        setUpView()
         setUpStackView()
-        setUpStackViewConstraint()
-        setUpSwitchButtonViewConstraint()
-        setUpDiverViewConstraint()
-        switchButtonView.delegate = self
-        dividerView.backgroundColor = .yellow
+        setUpStackViewConstraints()
+        setUpSwitchButtonViewConstraints()
+        setUpDiverViewConstraints()
+        setUpStatusBar()
     }
     
-    //MARK: StackView
+    // MARK: StackView
     private func setUpStackView() {
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
     }
     
-    //MARK: Add subView
-    private func addSubview() {
-        [dividerView, switchButtonView, stackView].forEach { view in
-            self.view.addSubview(view)
+    // MARK: Add subView
+    private func setUpView() {
+        [dividerView, switchButtonView, stackView].forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        [dividerView, switchButtonView, stackView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-   
     }
     
-    //MARK: SwitchButtonView Constraint
-    private func setUpSwitchButtonViewConstraint() {
+     private  func setUpStatusBar() {
+         var prefersStatusBarHidden: Bool {
+           return false
+         }
+
+         var preferredStatusBarStyle: UIStatusBarStyle {
+          return statusBarStyle
+         }
+     }
+    
+    // MARK: SwitchButtonView Constraint
+    private func setUpSwitchButtonViewConstraints() {
+        switchButtonView.delegate = self
         NSLayoutConstraint.activate([
-            switchButtonView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.switchButtontopAnchor),
-            switchButtonView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constants.switchButtontTrailingAnchor),
-            switchButtonView.widthAnchor.constraint(equalToConstant: Constants.switchButtontWidthAnchor),
-            switchButtonView.heightAnchor.constraint(equalToConstant: Constants.switchButtontHHeightAnchor),
+            switchButtonView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.SwitchButtonView.top),
+            switchButtonView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constants.SwitchButtonView.trailing),
+            switchButtonView.widthAnchor.constraint(equalToConstant: Constants.SwitchButtonView.width),
+            switchButtonView.heightAnchor.constraint(equalToConstant: Constants.SwitchButtonView.height),
         ])
     }
     
-    //MARK: StackView Constraint
-    private func setUpStackViewConstraint() {
+    // MARK: StackView Constraint
+    private func setUpStackViewConstraints() {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: switchButtonView.bottomAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -62,24 +74,36 @@ class ViewController: UIViewController {
         ])
     }
     
-    //MARK: DivederView Constraint
-    private func setUpDiverViewConstraint() {
+    // MARK: DivederView Constraint
+    private func setUpDiverViewConstraints() {
+        dividerView.backgroundColor = .yellow
         NSLayoutConstraint.activate([
-            dividerView.topAnchor.constraint(equalTo: topMessageView.bottomAnchor, constant: 30),
-            dividerView.bottomAnchor.constraint(equalTo: bottomMessageView.topAnchor),
+            dividerView.topAnchor.constraint(equalTo: topMessageView.bottomAnchor, constant: Constants.DivederView.top),
+            dividerView.bottomAnchor.constraint(equalTo: bottomMessageView.topAnchor, constant: Constants.DivederView.bottom),
             dividerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dividerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            dividerView.heightAnchor.constraint(equalToConstant: Constants.dividerViewHeightAnchor)
+            dividerView.heightAnchor.constraint(equalToConstant: Constants.DivederView.height)
         ])
     }
 }
 
-//MARK: Extension
+// MARK: - SwitchModeViewDelegate
 extension ViewController: SwitchModeViewDelegate {
-    func switchModeView(with state: ButtonState) {
-        topMessageView.backgroundColor = state == .dark ? .white : Constants.backGroundColor
-        bottomMessageView.backgroundColor = state == .dark ? .white : Constants.backGroundColor
-        view.backgroundColor = state == .dark ? .white : Constants.backGroundColor
+    func switchModeView(with state: SwitchModeView.ButtonState) {
+        switch state {
+        case .light:
+            setUpBackgroundColor(with: Constants.SwitchButtonView.backGroundColor)
+            setUpStatusBar()
+        case .dark:
+            setUpBackgroundColor(with: .white)
+            setUpStatusBar()
+        }
+    }
+    
+    private func setUpBackgroundColor(with color: UIColor) {
+        [topMessageView, bottomMessageView, view].forEach {
+            $0.backgroundColor = color
+        }
     }
 }
 
