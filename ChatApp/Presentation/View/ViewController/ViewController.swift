@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         setUpStackViewConstraints()
         setUpSwitchButtonViewConstraints()
         setUpDiverViewConstraints()
-        //setUpStatusBar()
+        
         
     }
     
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         }
     }
     
-    // MARK: SwitchButtonView Constraint
+    // MARK: Constraint
     private func setUpSwitchButtonViewConstraints() {
         switchButtonView.delegate = self
         NSLayoutConstraint.activate([
@@ -60,17 +60,15 @@ class ViewController: UIViewController {
         ])
     }
     
-    // MARK: StackView Constraint
     private func setUpStackViewConstraints() {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: switchButtonView.bottomAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
-    
-    // MARK: DivederView Constraint
+        
     private func setUpDiverViewConstraints() {
         dividerView.backgroundColor = .yellow
         NSLayoutConstraint.activate([

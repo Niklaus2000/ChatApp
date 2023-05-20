@@ -19,6 +19,8 @@ extension MessageTextView {
             static let cornerRadius: CGFloat = 28
             static let leading: CGFloat = 16
             static let trailing: CGFloat = -16
+            static let bottom: CGFloat = 30
+            static let height: CGFloat = 120
         }
         
         // MARK: TextView constant
@@ -41,8 +43,11 @@ extension MessageTextView {
             static let width: CGFloat = 32
             static let height: CGFloat = 32
             static let bottom: CGFloat = -12
-            static let trailing: CGFloat = -10
+            static let trailing: CGFloat = -12
             static let image = UIImage(named: "send_button_image")
         }
     }
 }
+
+
+

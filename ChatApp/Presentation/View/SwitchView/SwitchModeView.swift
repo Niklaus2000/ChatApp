@@ -1,17 +1,12 @@
 import UIKit
 
-//// MARK: Button State
-//enum ButtonStyle {
-//    case light
-//    case dark
-//}
-
 // MARK: Switch Protocol
 protocol SwitchModeViewDelegate: AnyObject {
     func switchModeView(with state: SwitchModeView.ButtonState)
 }
 
 final class SwitchModeView: UIButton {
+    
     weak var delegate: SwitchModeViewDelegate?
     
     // MARK: Init

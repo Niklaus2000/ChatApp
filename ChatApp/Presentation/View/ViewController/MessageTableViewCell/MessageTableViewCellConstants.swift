@@ -19,7 +19,7 @@ extension MessageTableViewCell {
         }
         
         // MARK: - MessageLabelView constant
-        enum MessageLabelView {
+        enum MessageLabel {
             static let top: CGFloat =  16
             static let bottom: CGFloat = -16
             static let leading: CGFloat = 10
@@ -28,7 +28,7 @@ extension MessageTableViewCell {
         }
         
         // MARK: - DateLabelView constant
-        enum DateLabelView {
+        enum DateLabel {
             static let top: CGFloat = 4
             static let leading: CGFloat = 50
             static let bottom: CGFloat = -16
@@ -36,7 +36,7 @@ extension MessageTableViewCell {
         }
         
         // MARK: - FirstBubleView constant
-        enum FirstBubleView {
+        enum MediumBubleView {
             static let width: CGFloat = 24
             static let height: CGFloat = 24
             static let bottom: CGFloat = 2
@@ -44,7 +44,7 @@ extension MessageTableViewCell {
         }
         
         // MARK: - SecondBubleView constant
-        enum SecondBubleView {
+        enum SmallBubleView {
             static let width: CGFloat = 18
             static let height: CGFloat = 18
             static let bottom: CGFloat = -20

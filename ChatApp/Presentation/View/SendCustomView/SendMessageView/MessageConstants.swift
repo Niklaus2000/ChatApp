@@ -10,12 +10,11 @@ import UIKit
 
 extension MessageView {   
     enum Constants {
-        enum  InputContainer {
-            static let leading: CGFloat = 16
-            static let trailing: CGFloat = -16
-            static let height: CGFloat = 56
-            static let bottom: CGFloat = 16
-        }
+        static let leading: CGFloat = 16
+        static let trailing: CGFloat = -16
+        static let height: CGFloat = 56
+        static let bottom: CGFloat = 16
+        static let top: CGFloat = 6
     }
 }
 

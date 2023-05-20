@@ -9,6 +9,7 @@ final class MessageView: UIView {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: MessageTableViewCell.reuseIdentifier)
         return tableView
     }()
@@ -40,26 +41,24 @@ final class MessageView: UIView {
         }
     }
     
-    
-    // MARK: TableView constraint
-    private func setUpTableViewConstraints() {
+    // MARK: Constraint
+    private func setUpTableViewConstraints(){
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: messageTextView.topAnchor),
+            tableView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.top),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leading),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.trailing),
         ])
     }
-    
-    // MARK: MessageView constraint
-    private func setUpMessageTextView() {
+
+    private func setUpMessageTextView(){
         NSLayoutConstraint.activate([
-            messageTextView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.InputContainer.leading),
-            messageTextView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.InputContainer.trailing),
-            messageTextView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            messageTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.InputContainer.height),
+            messageTextView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
+            messageTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            messageTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            messageTextView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
+
 }
 
 // MARK: - Extension UITableViewDataSource
@@ -73,7 +72,6 @@ extension MessageView: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as?  MessageTableViewCell {
             let message = messages[indexPath.row]
             cell.configure(with: message)
-            cell.selectionStyle = .none
             return cell
         }
         return UITableViewCell()
