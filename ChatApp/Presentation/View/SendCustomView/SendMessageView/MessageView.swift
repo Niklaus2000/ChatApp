@@ -1,5 +1,12 @@
 import UIKit
 
+// MARK: - MessageStyle
+enum MessageStyle: String {
+     case greeting = "როგორ ხარ?"
+     case wellyou = "კარგად, შენ?"
+     case fine = "კარგად"
+ }
+
 final class MessageView: UIView {
     
     // MARK: Property
@@ -38,44 +45,51 @@ final class MessageView: UIView {
     // MARK: Constraint
     private func setUpTableViewConstraints(){
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.top),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leading),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.trailing),
+            tableView.topAnchor.constraint(
+                equalTo: topAnchor,
+                constant: Constants.top),
+            tableView.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: Constants.leading),
+            tableView.trailingAnchor.constraint(
+                equalTo: trailingAnchor,
+                constant: Constants.trailing),
         ])
     }
     
     private func setUpMessageTextView(){
         NSLayoutConstraint.activate([
-            messageTextView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
-            messageTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            messageTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            messageTextView.leadingAnchor.constraint(equalTo: leadingAnchor)
+            messageTextView.topAnchor.constraint(
+                equalTo: tableView.bottomAnchor),
+            messageTextView.bottomAnchor.constraint(
+                equalTo: bottomAnchor),
+            messageTextView.trailingAnchor.constraint(
+                equalTo: trailingAnchor),
+            messageTextView.leadingAnchor.constraint(
+                equalTo: leadingAnchor)
         ])
     }
-    
 }
 
-// MARK: - Extension UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension MessageView: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
-    
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
-        if indexPath.row == 0 {
-            cell.configure(with: "როგორ ხარ?", indexpath: indexPath)
-        } else if indexPath.row == 1 {
-            cell.configure(with: "კარგად, შენ?", indexpath: indexPath)
-        }else if indexPath.row == 2 {
-            cell.configure(with: "კარგად", indexpath: indexPath)
-        }
-       return cell
         
-       }
+        let message: MessageStyle = {
+            switch indexPath.row {
+            case 0: return .greeting
+            case 1: return .wellyou
+            case 2: return .fine
+            default: fatalError("Invalid index path")
+            }
+        }()
+        
+        cell.configure(with: message.rawValue, indexpath: indexPath)
+        return cell
+    }
 }
-
-
-
-

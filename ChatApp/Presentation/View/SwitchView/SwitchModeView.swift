@@ -2,7 +2,7 @@ import UIKit
 
 // MARK: Switch Protocol
 protocol SwitchModeViewDelegate: AnyObject {
-    func switchModeView(with state: SwitchModeView.ButtonState)
+    func switchModeView(_ switchModeView: SwitchModeView, didSwitchStateTo state: SwitchModeView.ButtonState)
 }
 
 final class SwitchModeView: UIButton {
@@ -25,14 +25,13 @@ final class SwitchModeView: UIButton {
         setImage(LocalConstants.dark, for: .selected)
         translatesAutoresizingMaskIntoConstraints = false
         
-        addAction(UIAction(handler: { [weak self] _ in
+        addAction(UIAction(handler: {[weak self] _ in
             self?.switchModeTapped()
         }), for: .touchUpInside)
     }
     
     // MARK: SwitchMode
     private func switchModeTapped() {
-        self.isSelected.toggle()
-        delegate?.switchModeView(with: self.isSelected ? .light : .dark)
-    }
-}
+        isSelected.toggle()
+        delegate?.switchModeView(self, didSwitchStateTo: isSelected ? .light : .dark)
+    }}

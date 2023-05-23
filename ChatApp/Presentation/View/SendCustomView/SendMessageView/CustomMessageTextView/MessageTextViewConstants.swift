@@ -5,7 +5,6 @@
 //  Created by Nika Gogichashvili on 04.05.23.
 //
 
-import Foundation
 import UIKit
 
 // MARK: MessageTextView constraint
@@ -26,16 +25,16 @@ extension MessageTextView {
         // MARK: TextView constant
         enum TextView {
             static let textContainerInset = UIEdgeInsets(top: 15, left: 18, bottom: 15, right: 5)
-            static let top: CGFloat =  10
-            static let bottom: CGFloat =  -10
+            static let top: CGFloat = 10
+            static let bottom: CGFloat = -10
             static let leading: CGFloat = 10
             static let trailing: CGFloat = -5
             static let textFontSize = UIFont.systemFont(ofSize: 16)
             static let height: CGFloat = 56
             static let maxLines = 5
             static let text = "დაწერე შეტყობინება..."
-            static let placeholderColor = UIColor(red: 0.884, green: 0.884,  blue: 0.884,alpha: 1)
-            static let lightModeTextColor = UIColor(red: 0.098,  green: 0.098, blue: 0.098,   alpha: 1)
+            static let placeholderColor = UIColor(red: 0.884, green: 0.884, blue: 0.884, alpha: 1)
+            static let lightModeTextColor = UIColor(red: 0.098, green: 0.098, blue: 0.098, alpha: 1)
         }
         
         // MARK: ButtonView constant
@@ -48,6 +47,3 @@ extension MessageTextView {
         }
     }
 }
-
-
-

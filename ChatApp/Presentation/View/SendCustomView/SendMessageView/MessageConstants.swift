@@ -5,7 +5,6 @@
 //  Created by Nika Gogichashvili on 28.04.23.
 //
 
-import Foundation
 import UIKit
 
 extension MessageView {   
@@ -17,4 +16,3 @@ extension MessageView {
         static let top: CGFloat = 6
     }
 }
-

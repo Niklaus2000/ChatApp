@@ -1,15 +1,14 @@
 //
-//  User.swift
+//  Message.swift
 //  ChatApp
 //
 //  Created by Nika Gogichashvili on 19.04.23.
 //
 
-import UIKit
+import Foundation
 
 struct Message {
+    let userID: Int
     let text: String
-    let date: String
-//    let senderId: Int
-//    let receiverId: Int
+    let date: Date
 }
