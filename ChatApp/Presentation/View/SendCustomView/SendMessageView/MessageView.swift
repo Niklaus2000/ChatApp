@@ -14,12 +14,6 @@ final class MessageView: UIView {
         return tableView
     }()
     
-    var messages  = [Message(text: "მამწერე", date: "11.11.1111"),
-                     Message(text: "მამწერე", date: "11.11.1111"),
-                     Message(text: "მამწერე", date: "11.11.1111"),
-                     Message(text: "მამწერე", date: "11.11.1111")
-    ]
-    
     // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,7 +43,7 @@ final class MessageView: UIView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.trailing),
         ])
     }
-
+    
     private func setUpMessageTextView(){
         NSLayoutConstraint.activate([
             messageTextView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
@@ -58,24 +52,28 @@ final class MessageView: UIView {
             messageTextView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
-
+    
 }
 
 // MARK: - Extension UITableViewDataSource
 extension MessageView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return 3
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as?  MessageTableViewCell {
-            let message = messages[indexPath.row]
-            cell.configure(with: message)
-            return cell
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
+        if indexPath.row == 0 {
+            cell.configure(with: "როგორ ხარ?", indexpath: indexPath)
+        } else if indexPath.row == 1 {
+            cell.configure(with: "კარგად, შენ?", indexpath: indexPath)
+        }else if indexPath.row == 2 {
+            cell.configure(with: "კარგად", indexpath: indexPath)
         }
-        return UITableViewCell()
-    }
+       return cell
+        
+       }
 }
 
 
