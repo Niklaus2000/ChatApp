@@ -16,23 +16,23 @@ final class MessageTableViewCell: UITableViewCell {
     
     // MARK: Property
     private lazy var mainBubbleView: UIView = {
-        return makeBubbleView(cornerRadius: Constants.MainBubleViewLeft.cornerRadius)
+        makeBubbleView(cornerRadius: Constants.MainBubleViewLeft.cornerRadius)
     }()
     
     private lazy var messageLabel: UILabel = {
-        return makeLabel(withFont: Constants.MessageLabelLeft.textFontSize, textColor: .white)
+        makeLabel(withFont: Constants.MessageLabelLeft.textFontSize, textColor: .white)
     }()
     
     private lazy var dateLabel: UILabel = {
-        return makeLabel(withFont: Constants.DateLabelLeft.textFontSize, textColor: .gray)
+        makeLabel(withFont: Constants.DateLabelLeft.textFontSize, textColor: .gray)
     }()
     
     private lazy var mediumBubbleView: UIView = {
-        return makeBubbleView(cornerRadius: Constants.MediumBubleViewLeft.radius)
+        makeBubbleView(cornerRadius: Constants.MediumBubleViewLeft.radius)
     }()
-
+    
     private lazy var smallBubbleView: UIView = {
-        return makeBubbleView(cornerRadius: Constants.SmallBubleViewLeft.radius)
+        makeBubbleView(cornerRadius: Constants.SmallBubleViewLeft.radius)
     }()
     
     // MARK: init
@@ -180,9 +180,6 @@ final class MessageTableViewCell: UITableViewCell {
             mainBubbleView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: Constants.MainBubleViewRight.trailing),
-//            mainBubbleView.leadingAnchor.constraint(
-//                equalTo: messageLabel.leadingAnchor,
-//                constant: Constants.MainBubleViewRight.leading),
             mainBubbleView.bottomAnchor.constraint(
                 equalTo: messageLabel.bottomAnchor,
                 constant: Constants.MainBubleViewRight.bottom),
