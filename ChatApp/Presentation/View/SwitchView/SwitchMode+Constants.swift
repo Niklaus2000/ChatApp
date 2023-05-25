@@ -14,7 +14,7 @@ extension SwitchModeView {
         static let light = UIImage(named: "light_image_view")
     }
     
-    // MARK: - Extension
+    // MARK: Extension
     enum ButtonState {
         case light
         case dark

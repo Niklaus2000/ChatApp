@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MessageTableViewCell: UITableViewCell {
+final class MessageTableViewCell: UITableViewCell {
     
     // MARK: Variable
     static let reuseIdentifier = "MessageTableViewCell"
@@ -16,43 +16,24 @@ class MessageTableViewCell: UITableViewCell {
     
     // MARK: Property
     private lazy var mainBubbleView: UIView = {
-        let bubble = UIView()
-        bubble.layer.cornerRadius = Constants.MainBubleViewLeft.cornerRadius
-        bubble.layer.masksToBounds = true
-        bubble.backgroundColor = .gray
-        return bubble
+        return makeBubbleView(cornerRadius: Constants.MainBubleViewLeft.cornerRadius)
     }()
     
     private lazy var messageLabel: UILabel = {
-        let label = UILabel()
-        label.font = Constants.MessageLabelLeft.textFontSize
-        label.textColor = .white
-        return label
+        return makeLabel(withFont: Constants.MessageLabelLeft.textFontSize, textColor: .white)
     }()
     
     private lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.font = Constants.DateLabelLeft.textFontSize
-        label.textColor = .gray
-        return label
+        return makeLabel(withFont: Constants.DateLabelLeft.textFontSize, textColor: .gray)
     }()
     
     private lazy var mediumBubbleView: UIView = {
-        let bubble = UIView()
-        bubble.layer.cornerRadius = Constants.MediumBubleViewLeft.radius
-        bubble.layer.masksToBounds = true
-        bubble.backgroundColor = .gray
-        return bubble
+        return makeBubbleView(cornerRadius: Constants.MediumBubleViewLeft.radius)
     }()
-    
+
     private lazy var smallBubbleView: UIView = {
-        let bubble = UIView()
-        bubble.layer.cornerRadius = Constants.SmallBubleViewLeft.radius
-        bubble.layer.masksToBounds = true
-        bubble.backgroundColor = . gray
-        return bubble
+        return makeBubbleView(cornerRadius: Constants.SmallBubleViewLeft.radius)
     }()
-    
     
     // MARK: init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -67,16 +48,30 @@ class MessageTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    private func makeLabel(withFont font: UIFont, textColor: UIColor) -> UILabel {
+        let label = UILabel()
+        label.font = font
+        label.textColor = textColor
+        return label
+    }
+    
+    private func makeBubbleView(cornerRadius: CGFloat) -> UIView {
+        let bubble = UIView()
+        bubble.layer.cornerRadius = cornerRadius
+        bubble.layer.masksToBounds = true
+        bubble.backgroundColor = .gray
+        return bubble
+    }
+    
     // MARK: Configure
     func configure(with message: String, indexpath: IndexPath) {
         messageLabel.text = message
-       
-        if indexpath.row == 0 {
+        
+        if indexpath.row == 0 || indexpath.row == 2 {
             setUpLeftConstraint()
         } else if indexpath.row == 1 {
             setUpRightConsstraint()
-        } else if indexpath.row == 2 {
-            setUpLeftConstraint()
         }
     }
     
@@ -185,9 +180,9 @@ class MessageTableViewCell: UITableViewCell {
             mainBubbleView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: Constants.MainBubleViewRight.trailing),
-            mainBubbleView.leadingAnchor.constraint(
-                equalTo: messageLabel.leadingAnchor,
-                constant: Constants.MainBubleViewRight.leading),
+//            mainBubbleView.leadingAnchor.constraint(
+//                equalTo: messageLabel.leadingAnchor,
+//                constant: Constants.MainBubleViewRight.leading),
             mainBubbleView.bottomAnchor.constraint(
                 equalTo: messageLabel.bottomAnchor,
                 constant: Constants.MainBubleViewRight.bottom),

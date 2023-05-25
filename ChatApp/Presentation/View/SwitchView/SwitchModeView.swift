@@ -12,7 +12,7 @@ final class SwitchModeView: UIButton {
     // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpConstraint()
+        setUp()
     }
     
     required init?(coder: NSCoder) {
@@ -20,7 +20,7 @@ final class SwitchModeView: UIButton {
     }
     
     // MARK: Constraint
-    private func setUpConstraint() {
+    private func setUp() {
         setImage(LocalConstants.light, for: .normal)
         setImage(LocalConstants.dark, for: .selected)
         translatesAutoresizingMaskIntoConstraints = false

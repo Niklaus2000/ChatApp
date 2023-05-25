@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ChatViewController.swift
 //  ChatApp
 //
 //  Created by Nika Gogichashvili on 18.04.23.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ChatViewController: UIViewController {
     
     // MARK: Properties
-    private lazy var stackView = UIStackView(arrangedSubviews: [topMessageView, dividerView, bottomMessageView])
+    private lazy var mainStackView = UIStackView(arrangedSubviews: [topMessageView, dividerView, bottomMessageView])
     private let topMessageView = MessageView()
     private let bottomMessageView = MessageView()
     private let switchButtonView = SwitchModeView()
@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpView()
+        setUp()
         setUpStackView()
         setUpStackViewConstraints()
         setUpSwitchButtonViewConstraints()
@@ -35,16 +35,19 @@ class ViewController: UIViewController {
     
     // MARK: StackView
     private func setUpStackView() {
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
+        mainStackView.axis = .vertical
+        mainStackView.distribution = .fillEqually
     }
     
     // MARK: Add subView
-    private func setUpView() {
-        [switchButtonView, stackView, dividerView].forEach {
-            view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+    private func setUp() {
+        [
+            switchButtonView,
+            mainStackView,
+            dividerView].forEach {
+                view.addSubview($0)
+                $0.translatesAutoresizingMaskIntoConstraints = false
+            }
     }
     
     // MARK: Constraint
@@ -66,13 +69,13 @@ class ViewController: UIViewController {
     
     private func setUpStackViewConstraints() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(
+            mainStackView.topAnchor.constraint(
                 equalTo: switchButtonView.bottomAnchor),
-            stackView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor, constant: -20),
-            stackView.leadingAnchor.constraint(
+            mainStackView.bottomAnchor.constraint(
+                equalTo: view.bottomAnchor, constant: Constants.StackView.bottom),
+            mainStackView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
-            stackView.trailingAnchor.constraint(
+            mainStackView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor),
         ])
     }
@@ -97,7 +100,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: - SwitchModeViewDelegate
-extension ViewController: SwitchModeViewDelegate {
+extension ChatViewController: SwitchModeViewDelegate {
     func switchModeView(_ switchModeView: SwitchModeView, didSwitchStateTo state: SwitchModeView.ButtonState) {
         switch state {
         case .light:
@@ -111,9 +114,12 @@ extension ViewController: SwitchModeViewDelegate {
     }
     
     private func setUpBackgroundColor(with color: UIColor) {
-        [topMessageView, bottomMessageView, view].forEach {
-            $0.backgroundColor = color
-        }
+        [
+            topMessageView,
+            bottomMessageView,
+            view].forEach {
+                $0.backgroundColor = color
+            }
     }
 }
 

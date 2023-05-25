@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 // MARK: - ViewController Constants
-extension ViewController {
+extension ChatViewController {
     enum Constants {
         
         // MARK: - DivederView Constants
@@ -26,6 +26,10 @@ extension ViewController {
             static let width: CGFloat = 54
             static let height: CGFloat = 27
             static let backGroundColor = UIColor(red: 0.1804, green: 0, blue: 0.4471, alpha: 1)
+        }
+        
+        enum StackView {
+            static let bottom: CGFloat = -20
         }
     }
 }

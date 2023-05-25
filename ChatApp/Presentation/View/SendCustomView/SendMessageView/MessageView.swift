@@ -25,7 +25,7 @@ final class MessageView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setUpView()
+        setUp()
         setUpTableViewConstraints()
         setUpMessageTextView()
     }
@@ -35,7 +35,7 @@ final class MessageView: UIView {
     }
     
     // MARK: add Subview
-    private func setUpView() {
+    private func setUp() {
         [tableView, messageTextView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +74,7 @@ final class MessageView: UIView {
 // MARK: - UITableViewDataSource
 extension MessageView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
