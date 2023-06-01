@@ -28,6 +28,8 @@ final class MessageView: UIView {
         setUp()
         setUpTableViewConstraints()
         setUpMessageTextView()
+        
+        messageTextView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -91,5 +93,11 @@ extension MessageView: UITableViewDataSource {
         
         cell.configure(with: message.rawValue, indexpath: indexPath)
         return cell
+    }
+}
+
+extension MessageView: sendButtonDelegate {
+    func sendMessage(textView: String) {
+        
     }
 }

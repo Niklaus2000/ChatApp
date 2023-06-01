@@ -12,8 +12,12 @@
 		901DE0742A02FE5200122FA5 /* MessageTextView+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901DE0732A02FE5200122FA5 /* MessageTextView+Constants.swift */; };
 		90213DF22A1643FF0066B3A5 /* MessageTableViewCell+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90213DF12A1643FF0066B3A5 /* MessageTableViewCell+Constants.swift */; };
 		90586AD429FAF3C800950329 /* SwitchModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90586AD329FAF3C800950329 /* SwitchModeView.swift */; };
-		909D481A29F00ACB00855296 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909D481929F00ACB00855296 /* Message.swift */; };
-		90CA3D9A29FBB9C700D1D9F3 /* SwitchMode+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CA3D9929FBB9C700D1D9F3 /* SwitchMode+Constants.swift */; };
+		90B81D442A1E224C00C1CA29 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B81D432A1E224C00C1CA29 /* ChatViewModel.swift */; };
+		90BC27CE2A1F7B9C00F9F6EE /* Message.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 90BC27CC2A1F7B9C00F9F6EE /* Message.xcdatamodeld */; };
+		90BC27D72A1F821500F9F6EE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BC27D62A1F821500F9F6EE /* CoreDataStack.swift */; };
+		90BC27DA2A1F82DA00F9F6EE /* Message+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BC27D82A1F82DA00F9F6EE /* Message+CoreDataClass.swift */; };
+		90BC27DB2A1F82DA00F9F6EE /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BC27D92A1F82DA00F9F6EE /* Message+CoreDataProperties.swift */; };
+		90BC27DD2A1F857D00F9F6EE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BC27DC2A1F857D00F9F6EE /* CoreDataManager.swift */; };
 		90CA3D9D29FBCCDA00D1D9F3 /* MessageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CA3D9C29FBCCDA00D1D9F3 /* MessageConstants.swift */; };
 		90DB593829EF04990094FAB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB593729EF04990094FAB5 /* AppDelegate.swift */; };
 		90DB593A29EF04990094FAB5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB593929EF04990094FAB5 /* SceneDelegate.swift */; };
@@ -23,8 +27,9 @@
 		90DB594F29EF049E0094FAB5 /* ChatAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB594E29EF049E0094FAB5 /* ChatAppTests.swift */; };
 		90DB595929EF049E0094FAB5 /* ChatAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB595829EF049E0094FAB5 /* ChatAppUITests.swift */; };
 		90DB595B29EF049E0094FAB5 /* ChatAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB595A29EF049E0094FAB5 /* ChatAppUITestsLaunchTests.swift */; };
+		90E21AB72A2263FA009E7C0E /* SwitchModeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E21AB62A2263FA009E7C0E /* SwitchModeConstants.swift */; };
 		90E4FE982A0242BF006CE1ED /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E4FE972A0242BF006CE1ED /* MessageTableViewCell.swift */; };
-		90F61BF22A00017200A5494B /* ViewController+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F61BF12A00017200A5494B /* ViewController+Constants.swift */; };
+		90F61BF22A00017200A5494B /* ChatViewController+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F61BF12A00017200A5494B /* ChatViewController+Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,8 +55,12 @@
 		901DE0732A02FE5200122FA5 /* MessageTextView+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageTextView+Constants.swift"; sourceTree = "<group>"; };
 		90213DF12A1643FF0066B3A5 /* MessageTableViewCell+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageTableViewCell+Constants.swift"; sourceTree = "<group>"; };
 		90586AD329FAF3C800950329 /* SwitchModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchModeView.swift; sourceTree = "<group>"; };
-		909D481929F00ACB00855296 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		90CA3D9929FBB9C700D1D9F3 /* SwitchMode+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwitchMode+Constants.swift"; sourceTree = "<group>"; };
+		90B81D432A1E224C00C1CA29 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		90BC27CD2A1F7B9C00F9F6EE /* Message.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Message.xcdatamodel; sourceTree = "<group>"; };
+		90BC27D62A1F821500F9F6EE /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		90BC27D82A1F82DA00F9F6EE /* Message+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataClass.swift"; sourceTree = "<group>"; };
+		90BC27D92A1F82DA00F9F6EE /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		90BC27DC2A1F857D00F9F6EE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		90CA3D9C29FBCCDA00D1D9F3 /* MessageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageConstants.swift; sourceTree = "<group>"; };
 		90DB593429EF04990094FAB5 /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90DB593729EF04990094FAB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,8 +74,9 @@
 		90DB595429EF049E0094FAB5 /* ChatAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		90DB595829EF049E0094FAB5 /* ChatAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUITests.swift; sourceTree = "<group>"; };
 		90DB595A29EF049E0094FAB5 /* ChatAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		90E21AB62A2263FA009E7C0E /* SwitchModeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchModeConstants.swift; sourceTree = "<group>"; };
 		90E4FE972A0242BF006CE1ED /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
-		90F61BF12A00017200A5494B /* ViewController+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Constants.swift"; sourceTree = "<group>"; };
+		90F61BF12A00017200A5494B /* ChatViewController+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Constants.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				90586AD329FAF3C800950329 /* SwitchModeView.swift */,
-				90CA3D9929FBB9C700D1D9F3 /* SwitchMode+Constants.swift */,
+				90E21AB62A2263FA009E7C0E /* SwitchModeConstants.swift */,
 			);
 			path = SwitchView;
 			sourceTree = "<group>";
@@ -125,17 +135,28 @@
 			children = (
 				90E4FE952A011FB0006CE1ED /* SendCustomView */,
 				90586AB029FA85D100950329 /* SwitchView */,
-				90F61BF02A0000EF00A5494B /* CharViewController */,
+				90F61BF02A0000EF00A5494B /* ChatView */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		909D481829F00AAC00855296 /* Model */ = {
+		90B81D362A1DF90300C1CA29 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				909D481929F00ACB00855296 /* Message.swift */,
+				90BC27D82A1F82DA00F9F6EE /* Message+CoreDataClass.swift */,
+				90BC27D92A1F82DA00F9F6EE /* Message+CoreDataProperties.swift */,
+				90BC27D62A1F821500F9F6EE /* CoreDataStack.swift */,
+				90BC27DC2A1F857D00F9F6EE /* CoreDataManager.swift */,
 			);
-			path = Model;
+			path = Data;
+			sourceTree = "<group>";
+		};
+		90B81D422A1E223100C1CA29 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				90B81D432A1E224C00C1CA29 /* ChatViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		90CA3D9B29FBCB7200D1D9F3 /* SendMessageView */ = {
@@ -171,12 +192,13 @@
 		90DB593629EF04990094FAB5 /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
-				909D481829F00AAC00855296 /* Model */,
+				90B81D362A1DF90300C1CA29 /* Data */,
 				909D481629F008FB00855296 /* Presentation */,
 				90DB596829EF21900094FAB5 /* APP */,
 				90DB594029EF049E0094FAB5 /* Assets.xcassets */,
 				90DB594229EF049E0094FAB5 /* LaunchScreen.storyboard */,
 				90DB594529EF049E0094FAB5 /* Info.plist */,
+				90BC27CC2A1F7B9C00F9F6EE /* Message.xcdatamodeld */,
 			);
 			path = ChatApp;
 			sourceTree = "<group>";
@@ -216,12 +238,12 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		90E4FE872A00FD5A006CE1ED /* ChatViewController+Constannts */ = {
+		90E4FE872A00FD5A006CE1ED /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				90F61BF12A00017200A5494B /* ViewController+Constants.swift */,
+				90F61BF12A00017200A5494B /* ChatViewController+Constants.swift */,
 			);
-			path = "ChatViewController+Constannts";
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		90E4FE952A011FB0006CE1ED /* SendCustomView */ = {
@@ -232,14 +254,15 @@
 			path = SendCustomView;
 			sourceTree = "<group>";
 		};
-		90F61BF02A0000EF00A5494B /* CharViewController */ = {
+		90F61BF02A0000EF00A5494B /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
+				90B81D422A1E223100C1CA29 /* ViewModel */,
 				90E2CB052A0B9C0500496E9B /* Cell */,
-				90E4FE872A00FD5A006CE1ED /* ChatViewController+Constannts */,
+				90E4FE872A00FD5A006CE1ED /* Constants */,
 				90DB593B29EF04990094FAB5 /* ChatViewController.swift */,
 			);
-			path = CharViewController;
+			path = ChatView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,19 +395,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90BC27D72A1F821500F9F6EE /* CoreDataStack.swift in Sources */,
+				90BC27CE2A1F7B9C00F9F6EE /* Message.xcdatamodeld in Sources */,
 				901DE0742A02FE5200122FA5 /* MessageTextView+Constants.swift in Sources */,
 				90586AD429FAF3C800950329 /* SwitchModeView.swift in Sources */,
 				901DE0722A02FBA400122FA5 /* MessageTextView.swift in Sources */,
-				90F61BF22A00017200A5494B /* ViewController+Constants.swift in Sources */,
+				90F61BF22A00017200A5494B /* ChatViewController+Constants.swift in Sources */,
+				90BC27DD2A1F857D00F9F6EE /* CoreDataManager.swift in Sources */,
 				90106FE929F806FD007A4CA3 /* MessageView.swift in Sources */,
-				909D481A29F00ACB00855296 /* Message.swift in Sources */,
+				90E21AB72A2263FA009E7C0E /* SwitchModeConstants.swift in Sources */,
 				90213DF22A1643FF0066B3A5 /* MessageTableViewCell+Constants.swift in Sources */,
 				90DB593C29EF04990094FAB5 /* ChatViewController.swift in Sources */,
 				90DB593829EF04990094FAB5 /* AppDelegate.swift in Sources */,
-				90CA3D9A29FBB9C700D1D9F3 /* SwitchMode+Constants.swift in Sources */,
+				90BC27DB2A1F82DA00F9F6EE /* Message+CoreDataProperties.swift in Sources */,
 				90CA3D9D29FBCCDA00D1D9F3 /* MessageConstants.swift in Sources */,
 				90E4FE982A0242BF006CE1ED /* MessageTableViewCell.swift in Sources */,
+				90B81D442A1E224C00C1CA29 /* ChatViewModel.swift in Sources */,
 				90DB593A29EF04990094FAB5 /* SceneDelegate.swift in Sources */,
+				90BC27DA2A1F82DA00F9F6EE /* Message+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,6 +742,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		90BC27CC2A1F7B9C00F9F6EE /* Message.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				90BC27CD2A1F7B9C00F9F6EE /* Message.xcdatamodel */,
+			);
+			currentVersion = 90BC27CD2A1F7B9C00F9F6EE /* Message.xcdatamodel */;
+			path = Message.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 90DB592C29EF04990094FAB5 /* Project object */;
 }
