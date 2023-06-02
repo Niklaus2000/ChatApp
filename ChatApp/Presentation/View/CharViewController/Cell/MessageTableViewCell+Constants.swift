@@ -30,7 +30,7 @@ extension MessageTableViewCell {
         // MARK: DateLabelView constant
         enum DateLabelLeft {
             static let top: CGFloat = 4
-            static let leading: CGFloat = 50
+            static let leading: CGFloat = 60
             static let bottom: CGFloat = -16
             static let textFontSize = UIFont.systemFont(ofSize: 12)
         }
@@ -48,7 +48,7 @@ extension MessageTableViewCell {
         enum SmallBubleViewLeft {
             static let width: CGFloat = 18
             static let height: CGFloat = 18
-            static let bottom: CGFloat = -3
+            static let bottom: CGFloat = -16
             static let leading: CGFloat = 20
             static let radius: CGFloat = 10
         }

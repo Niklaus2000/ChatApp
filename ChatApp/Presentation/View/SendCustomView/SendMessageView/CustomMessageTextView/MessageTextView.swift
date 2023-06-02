@@ -107,6 +107,10 @@ final class MessageTextView: UIView {
             sendButtonView.trailingAnchor.constraint(
                 equalTo: inputContainerView.trailingAnchor,
                 constant: Constants.ButtonView.trailing),
+            sendButtonView.heightAnchor.constraint(
+                equalToConstant: Constants.ButtonView.height),
+            sendButtonView.widthAnchor.constraint(
+                equalToConstant: Constants.ButtonView.width)
         ])
     }
 
@@ -118,7 +122,7 @@ final class MessageTextView: UIView {
         let linesRoundedUp = Int(ceil(textSize.height/charSize))
         return linesRoundedUp
     }
-        
+    
     private func updateTextViewHeight() {
         if calculateMaxLines() > Constants.TextView.maxLines {
             if heightConstraint != nil { return }

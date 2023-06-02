@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum BubblePosition {
+    case left
+    case right
+}
+
 final class MessageTableViewCell: UITableViewCell {
     
     // MARK: Variable
@@ -53,6 +58,7 @@ final class MessageTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = font
         label.textColor = textColor
+        label.numberOfLines = .zero
         return label
     }
     
@@ -65,12 +71,14 @@ final class MessageTableViewCell: UITableViewCell {
     }
     
     // MARK: Configure
-    func configure(with message: String, indexpath: IndexPath) {
-        messageLabel.text = message
+    func configure(with message: Message, bublePosition: BubblePosition) {
+        messageLabel.text = message.text
+        dateLabel.text = message.date
         
-        if indexpath.row == 0 || indexpath.row == 2 {
+        switch bublePosition {
+        case .left:
             setUpLeftConstraint()
-        } else if indexpath.row == 1 {
+        case .right:
             setUpRightConsstraint()
         }
     }
@@ -84,7 +92,7 @@ final class MessageTableViewCell: UITableViewCell {
     }
     
     // MARK: SetUp
-    private func setUpLeftConstraint() {
+    func setUpLeftConstraint() {
         setUpMainBubleConstraints()
         setUpMessageLabelConstraints()
         setUpDateViewConstraints()
@@ -92,7 +100,7 @@ final class MessageTableViewCell: UITableViewCell {
         setUpSmallBubleViewConstraints()
     }
     
-    private func setUpRightConsstraint() {
+    func setUpRightConsstraint() {
         setUpChatBubbleConstraintsSecond()
         setUpMessageLabelConstraintsSecond()
         setUpDateLabelConstraintsSecond()
@@ -108,6 +116,9 @@ final class MessageTableViewCell: UITableViewCell {
             mainBubbleView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
                 constant: Constants.MainBubleViewLeft.leading),
+            mainBubbleView.trailingAnchor.constraint(
+                lessThanOrEqualTo: contentView.trailingAnchor,
+                constant: -16)
         ])
     }
     
@@ -180,9 +191,13 @@ final class MessageTableViewCell: UITableViewCell {
             mainBubbleView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: Constants.MainBubleViewRight.trailing),
+            mainBubbleView.leadingAnchor.constraint(
+                greaterThanOrEqualTo: contentView.leadingAnchor,
+                constant: 19),
             mainBubbleView.bottomAnchor.constraint(
                 equalTo: messageLabel.bottomAnchor,
                 constant: Constants.MainBubleViewRight.bottom),
+
         ])
     }
     
