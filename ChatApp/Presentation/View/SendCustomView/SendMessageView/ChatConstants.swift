@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension MessageView {   
+extension ChatView {
     enum Constants {
         static let leading: CGFloat = 16
         static let trailing: CGFloat = -16

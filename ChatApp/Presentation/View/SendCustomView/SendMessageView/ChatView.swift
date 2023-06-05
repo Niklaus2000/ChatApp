@@ -2,36 +2,23 @@
 //  MessageView.swift
 //  ChatApp
 //
-//  Created by MacBoobPro on 29.05.23.
+//  Created by Nika Gogichashvili on 29.05.23.
 //
 
 import UIKit
 
-// MARK: - MessageStyle
-let messages: [Message] = [
-    Message(userID: 1, text: "დასწერhbaksdasdasjdnsaknxalskxnaxscjnsaknaskncanscasnasnlcnalacnanscnalncsancalnscanე", date: "11.11.1111"),
-    Message(userID: 2, text: "csancihasnjlnlnslfjdnfdslflsjndfldsknfsldnvknsmv lvsmdvsngmengmlvnmwfnklwqknnvjwmflwnvnsknvwjvnsljvnv", date: "11.11.1111"),
-    Message(userID: 1, text: "დასწერედსასჰბდაჯსკნდასბნკ,ნაჯ სხ,ხ აკსხ ჯკანსკხჯა ხბსკხნსა ხბხკ,ანხხ ბხაჯკნ სხახბნხასჯნხკა", date: "11.11.1111"),
-    Message(userID: 2, text: "მამწეკჯხნაკსნკხან კხ აკსნხკასნკხჯდკსანკდნაკსნდკჯსანნკაჯნხხკხანსკჯხნაკხნაკსნხაკსნხკახნკხახნკასნხკასნხკაკახნსხნხა", date: "11.11.1111"),
-    Message(userID: 1, text: "მამწერენდკანსკდნაკსნდკასნკადინასდჯნასინდაკსჯნდკნასკდნაკსდკნასკნდკა დკნასმნდანსკდნანდკსანკდნას", date: "11.11.1111"),
-    Message(userID: 1, text: "დასწერhbaksdasdasjdnsaknxalskxnaxscjnsaknaskncanscasnasnlcnalacnanscnalncsancalnscanე", date: "11.11.1111"),
-    Message(userID: 2, text: "csancihasnjlnlnslfjdnfdslflsjndfldsknfsldnvknsmv lvsmdvsngmengmlvnmwfnklwqknnvjwmflwnvnsknvwjvnsljvnv", date: "11.11.1111"),
-    Message(userID: 1, text: "დასწერედსასჰბდაჯსკნდასბნკ,ნაჯ სხ,ხ აკსხ ჯკანსკხჯა ხბსკხნსა ხბხკ,ანხხ ბხაჯკნ სხახბნხასჯნხკა", date: "11.11.1111"),
-    Message(userID: 2, text: "მამწეკჯხნაკსნკხან კხ აკსნხკასნკხნკაჯნხხკხანსკჯხნაკხნაკსნხაკსნხკახნკხახნკასნხკასნხკაკახნსხნხა", date: "11.11.1111"),
-    Message(userID: 1, text: "მამწერენდკანსკდნაკსნდკასნკადინასდჯნასინდაკსჯნდკნასკდნაკსდკნასკნდკდასჰდნკდასნდკასნკდნსაკნდკსანდკანსკდნაკდნსკაა დკნასმნდანსკდნანდკსანკდნას", date: "11.11.1111")
-]
-
-final class MessageView: UIView {
+final class ChatView: UIView {
     
     // MARK: Property
     private let messageTextView = MessageTextView()
     
-    private lazy var tableView: UITableView = {
+    var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
-        tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: MessageTableViewCell.reuseIdentifier)
+        tableView.register(
+            MessageTableViewCell.self,
+            forCellReuseIdentifier: MessageTableViewCell.reuseIdentifier)
         return tableView
     }()
     
@@ -85,17 +72,3 @@ final class MessageView: UIView {
     }
 }
 
-// MARK: - UITableViewDataSource
-extension MessageView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        messages.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
-        
-        let message = messages[indexPath.row]
-        cell.configure(with: message, bublePosition: message.userID == 1 ? .left: .right)
-        return cell
-    }
-}

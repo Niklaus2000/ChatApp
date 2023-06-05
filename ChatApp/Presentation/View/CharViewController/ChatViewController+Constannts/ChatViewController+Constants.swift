@@ -25,7 +25,11 @@ extension ChatViewController {
             static let trailing: CGFloat = -12
             static let width: CGFloat = 54
             static let height: CGFloat = 27
-            static let backGroundColor = UIColor(red: 0.1804, green: 0, blue: 0.4471, alpha: 1)
+            static let backGroundColor = UIColor(
+                red: 0.1804,
+                green: 0,
+                blue: 0.4471,
+                alpha: 1)
         }
         
         enum StackView {

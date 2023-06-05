@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: Buble Style
 enum BubblePosition {
     case left
     case right
@@ -16,8 +17,9 @@ final class MessageTableViewCell: UITableViewCell {
     
     // MARK: Variable
     static let reuseIdentifier = "MessageTableViewCell"
-    var leadingConstraint = NSLayoutConstraint()
-    var trailingConstraint = NSLayoutConstraint()
+    
+    private var senderConstraints: [NSLayoutConstraint] = []
+    private var receiverConstraints: [NSLayoutConstraint] = []
     
     // MARK: Property
     private lazy var mainBubbleView: UIView = {
@@ -25,7 +27,7 @@ final class MessageTableViewCell: UITableViewCell {
     }()
     
     private lazy var messageLabel: UILabel = {
-        makeLabel(withFont: Constants.MessageLabelLeft.textFontSize, textColor: .white)
+        makeLabel(withFont: Constants.MessageLabelLeft.textFontSize, textColor: .black)
     }()
     
     private lazy var dateLabel: UILabel = {
@@ -47,6 +49,7 @@ final class MessageTableViewCell: UITableViewCell {
         selectionStyle = .none
         
         setUp()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
@@ -66,7 +69,6 @@ final class MessageTableViewCell: UITableViewCell {
         let bubble = UIView()
         bubble.layer.cornerRadius = cornerRadius
         bubble.layer.masksToBounds = true
-        bubble.backgroundColor = .gray
         return bubble
     }
     
@@ -77,9 +79,25 @@ final class MessageTableViewCell: UITableViewCell {
         
         switch bublePosition {
         case .left:
-            setUpLeftConstraint()
+            NSLayoutConstraint.deactivate(receiverConstraints)
+            NSLayoutConstraint.activate(senderConstraints)
+            setUpLeftBackgroundColor()
         case .right:
-            setUpRightConsstraint()
+            NSLayoutConstraint.deactivate(senderConstraints)
+            NSLayoutConstraint.activate(receiverConstraints)
+            setUpRightBackgroundColor()
+        }
+    }
+    
+    private func setUpRightBackgroundColor() {
+        [mainBubbleView, mediumBubbleView, smallBubbleView].forEach {
+            $0.self.backgroundColor = Constants.MainBubleViewRight.backgroundColor
+        }
+    }
+    
+    private func setUpLeftBackgroundColor() {
+        [mainBubbleView, mediumBubbleView, smallBubbleView].forEach {
+            $0.self.backgroundColor = Constants.MainBubleViewLeft.backGroundColor
         }
     }
     
@@ -91,26 +109,8 @@ final class MessageTableViewCell: UITableViewCell {
         }
     }
     
-    // MARK: SetUp
-    func setUpLeftConstraint() {
-        setUpMainBubleConstraints()
-        setUpMessageLabelConstraints()
-        setUpDateViewConstraints()
-        setUpMediumBubleViewConstraints()
-        setUpSmallBubleViewConstraints()
-    }
-    
-    func setUpRightConsstraint() {
-        setUpChatBubbleConstraintsSecond()
-        setUpMessageLabelConstraintsSecond()
-        setUpDateLabelConstraintsSecond()
-        setUpMediumBubbleViewConstraintsSecond()
-        setUpSmallBubbleViewConstraintsSecond()
-    }
-    
-    // MARK: Constraints
-    private func setUpMainBubleConstraints() {
-        NSLayoutConstraint.activate([
+    private func setupViews() {
+         senderConstraints = [
             mainBubbleView.topAnchor.constraint(
                 equalTo: contentView.topAnchor),
             mainBubbleView.leadingAnchor.constraint(
@@ -118,12 +118,8 @@ final class MessageTableViewCell: UITableViewCell {
                 constant: Constants.MainBubleViewLeft.leading),
             mainBubbleView.trailingAnchor.constraint(
                 lessThanOrEqualTo: contentView.trailingAnchor,
-                constant: -16)
-        ])
-    }
-    
-    private func setUpMessageLabelConstraints() {
-        NSLayoutConstraint.activate([
+                constant: Constants.MainBubleViewLeft.trailing),
+            
             messageLabel.topAnchor.constraint(
                 equalTo: mainBubbleView.topAnchor,
                 constant: Constants.MessageLabelLeft.top),
@@ -136,11 +132,7 @@ final class MessageTableViewCell: UITableViewCell {
             messageLabel.bottomAnchor.constraint(
                 equalTo: mainBubbleView.bottomAnchor,
                 constant: Constants.MessageLabelLeft.bottom),
-        ])
-    }
-    
-    private func setUpMediumBubleViewConstraints() {
-        NSLayoutConstraint.activate([
+            
             mediumBubbleView.leadingAnchor.constraint(
                 equalTo: mainBubbleView.leadingAnchor,
                 constant: Constants.MediumBubleViewLeft.leading),
@@ -151,11 +143,7 @@ final class MessageTableViewCell: UITableViewCell {
                 equalToConstant: Constants.MediumBubleViewLeft.width),
             mediumBubbleView.heightAnchor.constraint(
                 equalToConstant: Constants.MediumBubleViewLeft.height),
-        ])
-    }
-    
-    private func setUpSmallBubleViewConstraints() {
-        NSLayoutConstraint.activate([
+            
             smallBubbleView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
                 constant: Constants.SmallBubleViewLeft.leading),
@@ -166,11 +154,7 @@ final class MessageTableViewCell: UITableViewCell {
                 equalToConstant: Constants.SmallBubleViewLeft.width),
             smallBubbleView.heightAnchor.constraint(
                 equalToConstant: Constants.SmallBubleViewLeft.height),
-        ])
-    }
-    
-    private func setUpDateViewConstraints() {
-        NSLayoutConstraint.activate([
+            
             dateLabel.topAnchor.constraint(
                 equalTo: mainBubbleView.bottomAnchor,
                 constant: Constants.DateLabelLeft.top),
@@ -180,11 +164,9 @@ final class MessageTableViewCell: UITableViewCell {
             dateLabel.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
                 constant: Constants.DateLabelLeft.bottom)
-        ])
-    }
-    
-    private func setUpChatBubbleConstraintsSecond() {
-        NSLayoutConstraint.activate([
+         ]
+
+         receiverConstraints = [
             mainBubbleView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
                 constant: Constants.MainBubleViewRight.top),
@@ -193,16 +175,11 @@ final class MessageTableViewCell: UITableViewCell {
                 constant: Constants.MainBubleViewRight.trailing),
             mainBubbleView.leadingAnchor.constraint(
                 greaterThanOrEqualTo: contentView.leadingAnchor,
-                constant: 19),
+                constant: Constants.MainBubleViewRight.leading),
             mainBubbleView.bottomAnchor.constraint(
                 equalTo: messageLabel.bottomAnchor,
                 constant: Constants.MainBubleViewRight.bottom),
-
-        ])
-    }
-    
-    private func setUpMessageLabelConstraintsSecond() {
-        NSLayoutConstraint.activate([
+            
             messageLabel.topAnchor.constraint(
                 equalTo: mainBubbleView.topAnchor,
                 constant: Constants.MessageLabelRight.top),
@@ -214,12 +191,8 @@ final class MessageTableViewCell: UITableViewCell {
                 constant: Constants.MessageLabelRight.bottom),
             messageLabel.leadingAnchor.constraint(
                 equalTo: mainBubbleView.leadingAnchor,
-                constant: Constants.MessageLabelRight.leading)
-        ])
-    }
-    
-    private func setUpDateLabelConstraintsSecond() {
-        NSLayoutConstraint.activate([
+                constant: Constants.MessageLabelRight.leading),
+            
             dateLabel.topAnchor.constraint(
                 equalTo: mainBubbleView.bottomAnchor,
                 constant: Constants.DateLabelRight.top),
@@ -228,12 +201,8 @@ final class MessageTableViewCell: UITableViewCell {
                 constant: Constants.DateLabelRight.trailing),
             dateLabel.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
-                constant: Constants.DateLabelRight.bottom)
-        ])
-    }
-    
-    private func setUpMediumBubbleViewConstraintsSecond() {
-        NSLayoutConstraint.activate([
+                constant: Constants.DateLabelRight.bottom),
+            
             mediumBubbleView.trailingAnchor.constraint(
                 equalTo: mainBubbleView.trailingAnchor,
                 constant: Constants.MediumBubleViewRight.trailing),
@@ -243,12 +212,8 @@ final class MessageTableViewCell: UITableViewCell {
             mediumBubbleView.widthAnchor.constraint(
                 equalToConstant: Constants.MediumBubleViewRight.width),
             mediumBubbleView.heightAnchor.constraint(
-                equalToConstant: Constants.MediumBubleViewRight.height)
-        ])
-    }
-    
-    private func setUpSmallBubbleViewConstraintsSecond() {
-        NSLayoutConstraint.activate([
+                equalToConstant: Constants.MediumBubleViewRight.height),
+            
             smallBubbleView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: Constants.SmallBubleViewRight.trailing),
@@ -259,6 +224,7 @@ final class MessageTableViewCell: UITableViewCell {
                 equalToConstant: Constants.SmallBubleViewRight.width),
             smallBubbleView.heightAnchor.constraint(
                 equalToConstant: Constants.SmallBubleViewRight.height)
-        ])
-    }
+         ]
+         NSLayoutConstraint.activate(senderConstraints)
+     }
 }

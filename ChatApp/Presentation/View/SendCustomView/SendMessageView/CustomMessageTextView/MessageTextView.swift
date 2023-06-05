@@ -113,7 +113,7 @@ final class MessageTextView: UIView {
                 equalToConstant: Constants.ButtonView.width)
         ])
     }
-
+    
     private func calculateMaxLines() -> Int {
         let maxSize = CGSize(width: textView.frame.width, height: CGFloat(Float.infinity))
         let charSize = textView.font?.lineHeight ?? 0
