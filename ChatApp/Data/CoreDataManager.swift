@@ -2,14 +2,14 @@
 //  CoreDataManager.swift
 //  ChatApp
 //
-//  Created by MacBoobPro on 25.05.23.
+//  Created by MacBoobPro on 05.06.23.
 //
 
 import Foundation
 import CoreData
 
-class CoreDataMannager {
-    static let shared = CoreDataMannager()
+class CoreDataManager {
+    static let shared = CoreDataManager()
     let context = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
 
     func fetchMessages() -> [Message] {
@@ -30,6 +30,7 @@ class CoreDataMannager {
         message.date = date
         do {
             try context.save()
+            print("addd")
         } catch let error as NSError {
             print("Failed to save message: \(error)")
         }

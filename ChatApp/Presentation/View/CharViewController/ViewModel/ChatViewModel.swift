@@ -2,11 +2,10 @@
 //  ChatViewModel.swift
 //  ChatApp
 //
-//  Created by Nika Gogichashvili on 24.05.23.
+//  Created by MacBoobPro on 05.06.23.
 //
 
 import Foundation
-
 
 final class ChatViewModel {
 
@@ -17,17 +16,18 @@ final class ChatViewModel {
     }
 
     var reloadTableView:(() -> ())?
-    let dbManager = CoreDataMannager.shared
+    let dbManager = CoreDataManager.shared
 
     func createMessage(id: Int, text: String) {
         dbManager.saveMessage(id: id, text: text, date: getDate())
         let newMessage = dbManager.fetchMessages().last
         if let message = newMessage {
             messages.append(message)
+            print(messages)
         }
     }
 
-    private func fetchMessage() {
+    func fetchMessage() {
         messages = dbManager.fetchMessages()
     }
 

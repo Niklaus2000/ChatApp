@@ -2,7 +2,7 @@
 //  Message+CoreDataProperties.swift
 //  ChatApp
 //
-//  Created by MacBoobPro on 25.05.23.
+//  Created by MacBoobPro on 05.06.23.
 //
 //
 
@@ -17,8 +17,8 @@ extension Message {
     }
 
     @NSManaged public var userId: Int16
-    @NSManaged public var date: String?
     @NSManaged public var text: String?
+    @NSManaged public var date: String?
 
 }
 

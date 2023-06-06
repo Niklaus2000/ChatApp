@@ -14,6 +14,7 @@ final class ChatViewController: UIViewController {
     private let topMessageView = MessageView()
     private let bottomMessageView = MessageView()
     private let switchButtonView = SwitchModeView()
+    private let viewModel = ChatViewModel()
     private let dividerView = UIView()
     private var statusBarStyle: UIStatusBarStyle = .darkContent
     
@@ -26,6 +27,9 @@ final class ChatViewController: UIViewController {
         setUpStackViewConstraints()
         setUpSwitchButtonViewConstraints()
         setUpDiverViewConstraints()
+        
+        topMessageView.messageTextView.delegate = self
+        bottomMessageView.messageTextView.delegate = self
     }
     
     // MARK: StatusBar Style
@@ -96,6 +100,24 @@ final class ChatViewController: UIViewController {
             dividerView.heightAnchor.constraint(
                 equalToConstant: Constants.DivederView.height)
         ])
+    }
+}
+
+extension ChatViewController: sendButtonDelegate {
+    func sendMessage() {
+        
+        let firstTextField = topMessageView.messageTextView.textView
+        let secondTextField = bottomMessageView.messageTextView.textView
+    
+        if firstTextField.isFirstResponder {
+            guard let text = firstTextField.text else { return }
+            viewModel.createMessage(id: 1, text: text)
+            firstTextField.text = ""
+        } else if secondTextField.isFirstResponder {
+            guard let text = secondTextField.text else { return }
+            viewModel.createMessage(id: 2, text: text)
+            firstTextField.text = ""
+        }
     }
 }
 

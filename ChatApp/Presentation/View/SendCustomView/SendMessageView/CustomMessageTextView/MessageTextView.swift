@@ -8,14 +8,13 @@
 import UIKit
 
 protocol sendButtonDelegate: AnyObject {
-    func sendMessage(textView: String)
+    func sendMessage()
 }
 
 final class MessageTextView: UIView {
     
     // MARK: Views
     private var heightConstraint: NSLayoutConstraint? = nil
-    
     weak var delegate: sendButtonDelegate?
     
     // MARK: Properties
@@ -27,7 +26,7 @@ final class MessageTextView: UIView {
         return inputContainerView
     }()
     
-    private lazy var textView: UITextView = {
+    lazy var textView: UITextView = {
         let textView = UITextView()
         textView.textContainerInset = Constants.TextView.textContainerInset
         textView.font = Constants.TextView.textFontSize
@@ -45,7 +44,7 @@ final class MessageTextView: UIView {
         sendButton.setImage(Constants.ButtonView.image, for: .normal)
         sendButton.addAction(UIAction(handler: { [weak self] _ in
             if let text = self?.textView.text {
-                self?.delegate?.sendMessage(textView: text)
+                self?.delegate?.sendMessage()
             }
         }), for: .touchUpInside)
         return sendButton
@@ -118,7 +117,7 @@ final class MessageTextView: UIView {
                 constant: Constants.ButtonView.bottom),
             sendButtonView.trailingAnchor.constraint(
                 equalTo: inputContainerView.trailingAnchor,
-                constant: Constants.ButtonView.trailing),
+                constant: Constants.ButtonView.trailing)            
         ])
     }
 

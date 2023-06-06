@@ -1,20 +1,20 @@
+//
+//  MessageView.swift
+//  ChatApp
+//
+//  Created by Nika Gogichashvili on 29.05.23.
+//
+
 import UIKit
 
-// MARK: - MessageStyle
-enum MessageStyle: String {
-     case greeting = "როგორ ხარ?"
-     case wellyou = "კარგად, შენ?"
-     case fine = "კარგად"
- }
 
-final class MessageView: UIView {
+final class ChatView: UIView {
     
     // MARK: Property
-    private let messageTextView = MessageTextView()
+    let messageTextView = MessageTextView()
     
-    private lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: MessageTableViewCell.reuseIdentifier)
@@ -29,7 +29,6 @@ final class MessageView: UIView {
         setUpTableViewConstraints()
         setUpMessageTextView()
         
-        messageTextView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -59,7 +58,7 @@ final class MessageView: UIView {
         ])
     }
     
-    private func setUpMessageTextView(){
+    func setUpMessageTextView(){
         NSLayoutConstraint.activate([
             messageTextView.topAnchor.constraint(
                 equalTo: tableView.bottomAnchor),
@@ -74,30 +73,16 @@ final class MessageView: UIView {
 }
 
 // MARK: - UITableViewDataSource
-extension MessageView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
-        
-        let message: MessageStyle = {
-            switch indexPath.row {
-            case 0: return .greeting
-            case 1: return .wellyou
-            case 2: return .fine
-            default: fatalError("Invalid index path")
-            }
-        }()
-        
-        cell.configure(with: message.rawValue, indexpath: indexPath)
-        return cell
-    }
-}
-
-extension MessageView: sendButtonDelegate {
-    func sendMessage(textView: String) {
-        
-    }
-}
+//extension ChatView: UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        messages.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
+//        
+//        let message = messages[indexPath.row]
+//        cell.configure(with: message, bublePosition: message.userID == 1 ? .left: .right)
+//        return cell
+//    }
+//}

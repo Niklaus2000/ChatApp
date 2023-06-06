@@ -1,5 +1,5 @@
 //
-//  SendMessageConstants.swift
+//  ChatConstants.swift
 //  ChatApp
 //
 //  Created by Nika Gogichashvili on 28.04.23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension MessageView {   
+extension ChatView {
     enum Constants {
         static let leading: CGFloat = 16
         static let trailing: CGFloat = -16

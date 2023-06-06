@@ -16,6 +16,7 @@ extension MessageTableViewCell {
             static let cornerRadius: CGFloat = 25
             static let borderWith: CGFloat = 1
             static let leading: CGFloat = 40
+            static let backGroundColor = UIColor(red: 241/255, green: 241/255, blue: 241/255, alpha: 1.0)
         }
         
         // MARK: MessageLabelView constant
