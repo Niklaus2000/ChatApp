@@ -5,20 +5,6 @@
 //  Created by Nika Gogichashvili on 18.04.23.
 //
 
-// MARK: - MessageStyle
-let messages: [Message] = [
-    Message(userID: 1, text: "დასწერhbaksdasdasjdnsaknxalskxnaxscjnsaknaskncanscasnasnlcnalacnanscnalncsancalnscanე", date: "11.11.1111"),
-    Message(userID: 2, text: "csancihasnjlnlnslfjdnfdslflsjndfldsknfsldnvknsmv lvsmdvsngmengmlvnmwfnklwqknnvjwmflwnvnsknvwjvnsljvnv", date: "11.11.1111"),
-    Message(userID: 1, text: "დასწერედსასჰბდაჯსკნდასბნკ,ნაჯ სხ,ხ აკსხ ჯკანსკხჯა ხბსკხნსა ხბხკ,ანხხ ბხაჯკნ სხახბნხასჯნხკა", date: "11.11.1111"),
-    Message(userID: 2, text: "მამწეკჯხნაკსნკხან კხ აკსნხკასნკხჯდკსანკდნაკსნდკჯსანნკაჯნხხკხანსკჯხნაკხნაკსნხაკსნხკახნკხახნკასნხკასნხკაკახნსხნხა", date: "11.11.1111"),
-    Message(userID: 1, text: "მამწერენდკანსკდნაკსნდკასნკადინასდჯნასინდაკსჯნდკნასკდნაკსდკნასკნდკა დკნასმნდანსკდნანდკსანკდნას", date: "11.11.1111"),
-    Message(userID: 2, text: "დასწერhbaksdasdasjdnsaknxalskxnaxscjnsaknaskncanscasnasnlcnalacnanscnalncsancalnscanე", date: "11.11.1111"),
-    Message(userID: 1, text: "csancihasnjlnlnslfjdnfdslflsjndfldsknfsldnvknsmv lvsmdvsngmengmlvnmwfnklwqknnvjwmflwnvnsknvwjvnsljvnv", date: "11.11.1111"),
-    Message(userID: 2, text: "დასწერედსასჰბდაჯსკნდასბნკ,ნაჯ სხ,ხ აკსხ ჯკანსკხჯა ხბსკხნსა ხბხკ,ანხხ ბხაჯკნ სხახბნხასჯნხკა", date: "11.11.1111"),
-    Message(userID: 1, text: "მამწეკჯხნაკსნკხან კხ აკსნხკასნკხნკაჯნხხკხანსკჯხნაკხნაკსნხაკსნხკახნკხახნკასნხკასნხკაკახნსხნხა", date: "11.11.1111"),
-    Message(userID: 2, text: "მამწერენდკანსკდნაკსნდკასნკადინასდჯნასინდაკსჯნდკნასკდნაკსდკნასკნდკდასჰდნკდასნდკასნკდნსაკნდკსანდკანსკდნაკდნსკაა დკნასმნდანსკდნანდკსანკდნას", date: "11.11.1111")
-]
-
 import UIKit
 final class ChatViewController: UIViewController {
     
@@ -27,6 +13,7 @@ final class ChatViewController: UIViewController {
     private let topMessageView = ChatView()
     private let bottomMessageView = ChatView()
     private let switchButtonView = SwitchModeView()
+    private let viewModel = ChatViewModel()
     private let dividerView = UIView()
     private var statusBarStyle: UIStatusBarStyle = .darkContent
     private let state: SwitchModeView.ButtonState = .light
@@ -40,9 +27,26 @@ final class ChatViewController: UIViewController {
         setUpStackViewConstraints()
         setUpSwitchButtonViewConstraints()
         setUpDiverViewConstraints()
+        viewModel.fetchMessage()
         
+        topMessageView.messageTextView.delegate = self
+        bottomMessageView.messageTextView.delegate = self
         topMessageView.tableView.dataSource = self
         bottomMessageView.tableView.dataSource = self
+        
+        topMessageView.tableView.delegate = self
+        bottomMessageView.tableView.delegate = self
+        
+        viewModel.reloadTableView = { [weak self] in
+                  self?.topMessageView.tableView.reloadData()
+                  self?.bottomMessageView.tableView.reloadData()
+              }
+        
+        if let colorData = UserDefaults.standard.object(forKey: "BackgroundColorKey") as? Data {
+             if let color = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
+                 setUpBackgroundColor(with: color)
+             }
+         }
     }
     
     // MARK: StatusBar Style
@@ -122,9 +126,11 @@ extension ChatViewController: SwitchModeViewDelegate {
         switch state {
         case .light:
             setUpBackgroundColor(with: Constants.SwitchButtonView.backGroundColor)
+            saveBackgroundColor(color: Constants.SwitchButtonView.backGroundColor)
             self.statusBarStyle = .lightContent
         case .dark:
             setUpBackgroundColor(with: .white)
+            saveBackgroundColor(color: .white)
             self.statusBarStyle = .darkContent
         }
         self.setNeedsStatusBarAppearanceUpdate()
@@ -138,39 +144,83 @@ extension ChatViewController: SwitchModeViewDelegate {
                 $0.backgroundColor = color
             }
     }
+    
+    private func saveBackgroundColor(color: UIColor) {
+           if let colorData = try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false) {
+               UserDefaults.standard.set(colorData, forKey: "BackgroundColorKey")
+           }
+       }
+}
+extension ChatViewController: sendButtonDelegate {
+    func sendMessage() {
+        let firstTextField = topMessageView.messageTextView.textView
+        let secondTextField = bottomMessageView.messageTextView.textView
+        
+        if firstTextField.isFirstResponder {
+            guard let text = firstTextField.text else { return }
+            viewModel.createMessage(id: 1, text: text)
+            firstTextField.text = ""
+        } else if secondTextField.isFirstResponder {
+            guard let text = secondTextField.text else { return }
+            viewModel.createMessage(id: 2, text: text)
+            secondTextField.text = ""
+        }
+    }
 }
 
- //MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        messages.count
+        viewModel.messages.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
-        let message = messages[indexPath.row]
-       
+        let message  = viewModel.messages[indexPath.row]
+
+        switch state  {
+        case .light:
             if tableView == topMessageView.tableView {
-                switch message.userID {
+                switch message.userId {
                 case 1:
-                    cell.configure(with: message, bublePosition: message.userID == 1 ? .right: .left)
+                    cell.configure(with: message, bublePosition: message.userId == 1 ? .right: .left)
                 case 2:
-                    cell.configure(with: message, bublePosition: message.userID == 2 ? .left: .right)
+                    cell.configure(with: message, bublePosition: message.userId == 2 ? .left: .right)
                 default:
                     return UITableViewCell()
                 }
             } else if tableView ==  bottomMessageView.tableView {
-                switch message.userID {
+                switch message.userId {
                 case 1:
-                    cell.configure(
-                        with: message, bublePosition: message.userID == 1 ? .left: .right)
+                    cell.configure(with: message, bublePosition: message.userId == 1 ? .left: .right)
                 case 2:
-                    cell.configure(with: message, bublePosition: message.userID == 2 ? .right: .left)
+                    cell.configure(with: message, bublePosition: message.userId == 2 ? .right: .left)
                 default:
                     return UITableViewCell()
                 }
             }
-        
+
+        case .dark:
+            if tableView == topMessageView.tableView {
+                switch message.userId {
+                case 1:
+                    cell.configure(with: message, bublePosition: message.userId == 1 ? .right: .left)
+                case 2:
+                    cell.configure(with: message, bublePosition: message.userId == 2 ? .left: .right)
+                default:
+                    return UITableViewCell()
+                }
+            } else if tableView ==  bottomMessageView.tableView {
+                switch message.userId {
+                case 1:
+                    cell.configure(with: message, bublePosition: message.userId == 1 ? .left: .right)
+                case 2:
+                    cell.configure(with: message, bublePosition: message.userId == 2 ? .right: .left)
+                default:
+                    return UITableViewCell()
+                }
+            }
+        }
         return cell
     }
 }

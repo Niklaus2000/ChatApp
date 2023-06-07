@@ -10,7 +10,7 @@ import UIKit
 final class ChatView: UIView {
     
     // MARK: Property
-    private let messageTextView = MessageTextView()
+    let messageTextView = MessageTextView()
     
     var tableView: UITableView = {
         let tableView = UITableView()
