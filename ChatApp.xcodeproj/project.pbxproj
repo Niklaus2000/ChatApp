@@ -12,11 +12,11 @@
 		90213DF22A1643FF0066B3A5 /* MessageTableViewCell+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90213DF12A1643FF0066B3A5 /* MessageTableViewCell+Constants.swift */; };
 		902BC1892A3083E0007862FC /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902BC1882A3083E0007862FC /* CoreDataStack.swift */; };
 		902BC1902A30864E007862FC /* Message.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 902BC18E2A30864E007862FC /* Message.xcdatamodeld */; };
-		902BC1932A308698007862FC /* Message+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902BC1912A308698007862FC /* Message+CoreDataClass.swift */; };
-		902BC1942A308698007862FC /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902BC1922A308698007862FC /* Message+CoreDataProperties.swift */; };
 		902BC1962A3086D8007862FC /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902BC1952A3086D8007862FC /* CoreDataManager.swift */; };
 		902BC1992A308C8A007862FC /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902BC1982A308C8A007862FC /* ChatViewModel.swift */; };
+		902BC19C2A30F162007862FC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902BC19B2A30F162007862FC /* NetworkManager.swift */; };
 		90586AD429FAF3C800950329 /* SwitchModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90586AD329FAF3C800950329 /* SwitchModeView.swift */; };
+		909F1A4A2A3104DA00C16857 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F1A492A3104DA00C16857 /* ChatViewController.swift */; };
 		90A5F8CF2A24996A0066CDAB /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A5F8CE2A24996A0066CDAB /* ChatView.swift */; };
 		90CA3D9A29FBB9C700D1D9F3 /* SwitchMode+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CA3D9929FBB9C700D1D9F3 /* SwitchMode+Constants.swift */; };
 		90CA3D9D29FBCCDA00D1D9F3 /* ChatConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CA3D9C29FBCCDA00D1D9F3 /* ChatConstants.swift */; };
@@ -29,7 +29,6 @@
 		90DB595B29EF049E0094FAB5 /* ChatAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB595A29EF049E0094FAB5 /* ChatAppUITestsLaunchTests.swift */; };
 		90E4FE982A0242BF006CE1ED /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E4FE972A0242BF006CE1ED /* MessageTableViewCell.swift */; };
 		90F61BF22A00017200A5494B /* ChatViewController+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F61BF12A00017200A5494B /* ChatViewController+Constants.swift */; };
-		90FC5C722A2A7F7400F4DFC3 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FC5C712A2A7F7400F4DFC3 /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,11 +54,11 @@
 		90213DF12A1643FF0066B3A5 /* MessageTableViewCell+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageTableViewCell+Constants.swift"; sourceTree = "<group>"; };
 		902BC1882A3083E0007862FC /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		902BC18F2A30864E007862FC /* Message.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Message.xcdatamodel; sourceTree = "<group>"; };
-		902BC1912A308698007862FC /* Message+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataClass.swift"; sourceTree = "<group>"; };
-		902BC1922A308698007862FC /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		902BC1952A3086D8007862FC /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		902BC1982A308C8A007862FC /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		902BC19B2A30F162007862FC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		90586AD329FAF3C800950329 /* SwitchModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchModeView.swift; sourceTree = "<group>"; };
+		909F1A492A3104DA00C16857 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		90A5F8CE2A24996A0066CDAB /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		90CA3D9929FBB9C700D1D9F3 /* SwitchMode+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwitchMode+Constants.swift"; sourceTree = "<group>"; };
 		90CA3D9C29FBCCDA00D1D9F3 /* ChatConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatConstants.swift; sourceTree = "<group>"; };
@@ -76,7 +75,6 @@
 		90DB595A29EF049E0094FAB5 /* ChatAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		90E4FE972A0242BF006CE1ED /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		90F61BF12A00017200A5494B /* ChatViewController+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Constants.swift"; sourceTree = "<group>"; };
-		90FC5C712A2A7F7400F4DFC3 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +114,6 @@
 		902BC1792A306222007862FC /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				902BC1912A308698007862FC /* Message+CoreDataClass.swift */,
-				902BC1922A308698007862FC /* Message+CoreDataProperties.swift */,
 				902BC1882A3083E0007862FC /* CoreDataStack.swift */,
 				902BC1952A3086D8007862FC /* CoreDataManager.swift */,
 			);
@@ -130,6 +126,14 @@
 				902BC1982A308C8A007862FC /* ChatViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		902BC19A2A30ED56007862FC /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				902BC19B2A30F162007862FC /* NetworkManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		90586AB029FA85D100950329 /* SwitchView */ = {
@@ -155,7 +159,6 @@
 				90E4FE952A011FB0006CE1ED /* SendCustomView */,
 				90586AB029FA85D100950329 /* SwitchView */,
 				90F61BF02A0000EF00A5494B /* CharViewController */,
-				90FC5C712A2A7F7400F4DFC3 /* ChatViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 		90DB593629EF04990094FAB5 /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				902BC19A2A30ED56007862FC /* Network */,
 				902BC1792A306222007862FC /* Data */,
 				909D481629F008FB00855296 /* Presentation */,
 				90DB596829EF21900094FAB5 /* APP */,
@@ -261,6 +265,7 @@
 				902BC1972A308C61007862FC /* ViewModel */,
 				90E2CB052A0B9C0500496E9B /* Cell */,
 				90E4FE872A00FD5A006CE1ED /* ChatViewController+Constannts */,
+				909F1A492A3104DA00C16857 /* ChatViewController.swift */,
 			);
 			path = CharViewController;
 			sourceTree = "<group>";
@@ -402,13 +407,12 @@
 				902BC1962A3086D8007862FC /* CoreDataManager.swift in Sources */,
 				90F61BF22A00017200A5494B /* ChatViewController+Constants.swift in Sources */,
 				90A5F8CF2A24996A0066CDAB /* ChatView.swift in Sources */,
-				902BC1942A308698007862FC /* Message+CoreDataProperties.swift in Sources */,
 				90213DF22A1643FF0066B3A5 /* MessageTableViewCell+Constants.swift in Sources */,
 				902BC1892A3083E0007862FC /* CoreDataStack.swift in Sources */,
 				90DB593829EF04990094FAB5 /* AppDelegate.swift in Sources */,
-				902BC1932A308698007862FC /* Message+CoreDataClass.swift in Sources */,
+				909F1A4A2A3104DA00C16857 /* ChatViewController.swift in Sources */,
+				902BC19C2A30F162007862FC /* NetworkManager.swift in Sources */,
 				90CA3D9A29FBB9C700D1D9F3 /* SwitchMode+Constants.swift in Sources */,
-				90FC5C722A2A7F7400F4DFC3 /* ChatViewController.swift in Sources */,
 				90CA3D9D29FBCCDA00D1D9F3 /* ChatConstants.swift in Sources */,
 				90E4FE982A0242BF006CE1ED /* MessageTableViewCell.swift in Sources */,
 				902BC1992A308C8A007862FC /* ChatViewModel.swift in Sources */,

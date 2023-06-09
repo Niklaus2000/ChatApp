@@ -23,11 +23,13 @@ class CoreDataManager {
         return messages
     }
 
-    func saveMessage(id: Int, text: String, date: String) {
+    func saveMessage(id: Int, text: String, date: String, isSent: Bool) {
         let message = Message(context: context)
+        
         message.userId = Int16(id)
         message.text = text
         message.date = date
+        message.isSent = isSent
         do {
             try context.save()
             print("addd")

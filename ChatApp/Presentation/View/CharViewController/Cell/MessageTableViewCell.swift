@@ -74,8 +74,24 @@ final class MessageTableViewCell: UITableViewCell {
     
     // MARK: Configure
     func configure(with message: Message, bublePosition: BubblePosition) {
-        messageLabel.text = message.text
-        dateLabel.text = message.date
+          messageLabel.text = message.text
+          dateLabel.text = message.date
+        //
+        //        if !NetworkManager.shared.isInternetAvailable() && !message.isSent {
+        //            dateLabel.text = "არ გაიგზავნა"
+        //            dateLabel.textColor = .red
+        //        } else {
+        //            dateLabel.text = ""
+        //        }
+        
+        if message.isSent && bublePosition == .right {
+            dateLabel.text = "არ გაიგზავნა"
+            messageLabel.textColor = .gray
+            dateLabel.textColor = .red
+        } else {
+            dateLabel.text = message.date
+            dateLabel.textColor = .gray
+        }
         
         switch bublePosition {
         case .left:
