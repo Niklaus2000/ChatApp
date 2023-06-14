@@ -111,13 +111,14 @@
 			path = CustomMessageTextView;
 			sourceTree = "<group>";
 		};
-		902BC1792A306222007862FC /* Data */ = {
+		902BC1792A306222007862FC /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				902BC18E2A30864E007862FC /* Message.xcdatamodeld */,
 				902BC1882A3083E0007862FC /* CoreDataStack.swift */,
 				902BC1952A3086D8007862FC /* CoreDataManager.swift */,
 			);
-			path = Data;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		902BC1972A308C61007862FC /* ViewModel */ = {
@@ -145,32 +146,68 @@
 			path = SwitchView;
 			sourceTree = "<group>";
 		};
-		909D481629F008FB00855296 /* Presentation */ = {
+		90BE9B162A399CF700704946 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				909D481729F0092700855296 /* View */,
+				90DB594029EF049E0094FAB5 /* Assets.xcassets */,
 			);
-			path = Presentation;
+			path = Resources;
 			sourceTree = "<group>";
 		};
-		909D481729F0092700855296 /* View */ = {
+		90BE9B172A399D6500704946 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				90E4FE952A011FB0006CE1ED /* SendCustomView */,
+				90BE9B1B2A39A37B00704946 /* Launch */,
+				90BE9B182A399D8100704946 /* Conversation */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		90BE9B182A399D8100704946 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				90E4FE872A00FD5A006CE1ED /* ChatViewController+Constannts */,
+				902BC1972A308C61007862FC /* ViewModel */,
+				909F1A492A3104DA00C16857 /* ChatViewController.swift */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
+		90BE9B192A399FE300704946 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				90BE9B1C2A39A3A600704946 /* ChatTableView */,
+				902BC19A2A30ED56007862FC /* Network */,
+				902BC1792A306222007862FC /* CoreData */,
+				90BE9B1A2A39A04600704946 /* Custom UI */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		90BE9B1A2A39A04600704946 /* Custom UI */ = {
+			isa = PBXGroup;
+			children = (
 				90586AB029FA85D100950329 /* SwitchView */,
-				90F61BF02A0000EF00A5494B /* CharViewController */,
+				90E4FE952A011FB0006CE1ED /* ChatView */,
 			);
-			path = View;
+			path = "Custom UI";
 			sourceTree = "<group>";
 		};
-		90CA3D9B29FBCB7200D1D9F3 /* SendMessageView */ = {
+		90BE9B1B2A39A37B00704946 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
-				901DE0702A02FB5E00122FA5 /* CustomMessageTextView */,
-				90CA3D9C29FBCCDA00D1D9F3 /* ChatConstants.swift */,
-				90A5F8CE2A24996A0066CDAB /* ChatView.swift */,
+				90DB594229EF049E0094FAB5 /* LaunchScreen.storyboard */,
 			);
-			path = SendMessageView;
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		90BE9B1C2A39A3A600704946 /* ChatTableView */ = {
+			isa = PBXGroup;
+			children = (
+				90E4FE972A0242BF006CE1ED /* MessageTableViewCell.swift */,
+				90213DF12A1643FF0066B3A5 /* MessageTableViewCell+Constants.swift */,
+			);
+			path = ChatTableView;
 			sourceTree = "<group>";
 		};
 		90DB592B29EF04990094FAB5 = {
@@ -196,14 +233,11 @@
 		90DB593629EF04990094FAB5 /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
-				902BC19A2A30ED56007862FC /* Network */,
-				902BC1792A306222007862FC /* Data */,
-				909D481629F008FB00855296 /* Presentation */,
+				90BE9B192A399FE300704946 /* Core */,
+				90BE9B172A399D6500704946 /* Scenes */,
+				90BE9B162A399CF700704946 /* Resources */,
 				90DB596829EF21900094FAB5 /* APP */,
-				90DB594029EF049E0094FAB5 /* Assets.xcassets */,
-				90DB594229EF049E0094FAB5 /* LaunchScreen.storyboard */,
 				90DB594529EF049E0094FAB5 /* Info.plist */,
-				902BC18E2A30864E007862FC /* Message.xcdatamodeld */,
 			);
 			path = ChatApp;
 			sourceTree = "<group>";
@@ -234,15 +268,6 @@
 			path = APP;
 			sourceTree = "<group>";
 		};
-		90E2CB052A0B9C0500496E9B /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				90E4FE972A0242BF006CE1ED /* MessageTableViewCell.swift */,
-				90213DF12A1643FF0066B3A5 /* MessageTableViewCell+Constants.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		90E4FE872A00FD5A006CE1ED /* ChatViewController+Constannts */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,23 +276,14 @@
 			path = "ChatViewController+Constannts";
 			sourceTree = "<group>";
 		};
-		90E4FE952A011FB0006CE1ED /* SendCustomView */ = {
+		90E4FE952A011FB0006CE1ED /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
-				90CA3D9B29FBCB7200D1D9F3 /* SendMessageView */,
+				901DE0702A02FB5E00122FA5 /* CustomMessageTextView */,
+				90A5F8CE2A24996A0066CDAB /* ChatView.swift */,
+				90CA3D9C29FBCCDA00D1D9F3 /* ChatConstants.swift */,
 			);
-			path = SendCustomView;
-			sourceTree = "<group>";
-		};
-		90F61BF02A0000EF00A5494B /* CharViewController */ = {
-			isa = PBXGroup;
-			children = (
-				902BC1972A308C61007862FC /* ViewModel */,
-				90E2CB052A0B9C0500496E9B /* Cell */,
-				90E4FE872A00FD5A006CE1ED /* ChatViewController+Constannts */,
-				909F1A492A3104DA00C16857 /* ChatViewController.swift */,
-			);
-			path = CharViewController;
+			path = ChatView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

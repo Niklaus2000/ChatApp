@@ -7,12 +7,18 @@
 
 import UIKit
 
+protocol ChatViewDelegate: AnyObject {
+    func didSendMessage(chatView: ChatView, text: String, date: Date, userId: Int)
+}
+
 final class ChatView: UIView {
     
     // MARK: Property
-    let messageTextView = MessageTextView()
+    private let messageTextView = MessageTextView()
+    weak var delegate: ChatViewDelegate?
+    private var loggedInUserID = 0
     
-    var tableView: UITableView = {
+    private var messageTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -29,15 +35,34 @@ final class ChatView: UIView {
         setUp()
         setUpTableViewConstraints()
         setUpMessageTextView()
+        
+        messageTextView.delegate = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setLoggedInUserId(loggedInUserId : Int){
+        self.loggedInUserID = loggedInUserId
+    }
+    
+    func getTableView() -> UITableView {
+        messageTableView
+    }
+    
+    func reloadTableView() {
+        messageTableView.reloadData()
+    }
+    
+    func configTableView(dataSource: UITableViewDataSource, delegate: UITableViewDelegate) {
+        messageTableView.dataSource = dataSource
+        messageTableView.delegate = delegate
+    }
+    
     // MARK: add Subview
     private func setUp() {
-        [tableView, messageTextView].forEach {
+        [messageTableView, messageTextView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -46,13 +71,13 @@ final class ChatView: UIView {
     // MARK: Constraint
     private func setUpTableViewConstraints(){
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(
+            messageTableView.topAnchor.constraint(
                 equalTo: topAnchor,
                 constant: Constants.top),
-            tableView.leadingAnchor.constraint(
+            messageTableView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
                 constant: Constants.leading),
-            tableView.trailingAnchor.constraint(
+            messageTableView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: Constants.trailing),
         ])
@@ -61,7 +86,7 @@ final class ChatView: UIView {
     private func setUpMessageTextView(){
         NSLayoutConstraint.activate([
             messageTextView.topAnchor.constraint(
-                equalTo: tableView.bottomAnchor),
+                equalTo: messageTableView.bottomAnchor),
             messageTextView.bottomAnchor.constraint(
                 equalTo: bottomAnchor),
             messageTextView.trailingAnchor.constraint(
@@ -71,4 +96,13 @@ final class ChatView: UIView {
         ])
     }
 }
+
+// MARK: - TextInputComponentViewDelegate
+extension ChatView: MessageTextViewDelegate {
+    func didTapButton(text: String, date: String) {
+        delegate?.didSendMessage(chatView: self, text: text, date: Date(), userId: loggedInUserID)
+    }
+}
+
+
 

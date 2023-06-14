@@ -2,7 +2,7 @@
 //  CoreDataStack.swift
 //  ChatApp
 //
-//  Created by MacBoobPro on 07.06.23.
+//  Created by Nika Gogichashvili on 07.06.23.
 //
 
 import Foundation
