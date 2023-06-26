@@ -161,7 +161,7 @@ extension ChatViewController: SwitchModeViewDelegate {
 }
 
 extension ChatViewController: ChatViewDelegate {
-    func didSendMessage(chatView: ChatView, message: Message) {
+    func didSendMessage(message: Message) {
         viewModel.saveMessage(message: message)
         self.topMessageView.reloadTableView(messages: viewModel.getMessages(userID: 1))
         self.bottomMessageView.reloadTableView(messages: viewModel.getMessages(userID: 2))

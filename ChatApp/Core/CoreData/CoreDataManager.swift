@@ -27,11 +27,11 @@ final class CoreDataManager {
     }
 
     func saveMessage(message: Message) {
-        let message = MessageEntity(context: context)
-        message.userId = Int16(message.userId)
-        message.text = message.text
-        message.date = message.date
-        message.isSent = message.isSent
+        let entity = MessageEntity(context: context)
+        entity.userId = Int16(message.userId)
+        entity.text = message.text
+        entity.date = message.date
+        entity.isSent = message.isSent
         do {
             try context.save()
         } catch let error as NSError {

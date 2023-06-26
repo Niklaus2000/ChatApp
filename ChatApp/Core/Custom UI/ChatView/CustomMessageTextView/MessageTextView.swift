@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MessageTextViewDelegate: AnyObject {
-    func didTapButton(text: String, date: String)
+    func didTapButton(text: String)
 }
 
 final class MessageTextView: UIView {
@@ -64,7 +64,7 @@ final class MessageTextView: UIView {
     
     @objc private func didTapSendButton() {
           if let message = textView.text {
-              delegate?.didTapButton(text: message, date: "")
+              delegate?.didTapButton(text: message)
               textView.text = ""
           }
       }
