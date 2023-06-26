@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ChatViewDelegate: AnyObject {
-    func didSendMessage(chatView: ChatView, text: String, date: Date, userId: Int)
+    func didSendMessage(chatView: ChatView, message: Message)
 }
 
 final class ChatView: UIView {
@@ -16,42 +16,39 @@ final class ChatView: UIView {
     // MARK: Property
     private let messageTextView = MessageTextView()
     weak var delegate: ChatViewDelegate?
-    private var loggedInUserID = 0
+    var loggedInUserID: Int
+    var messages: [Message]
+    private let network = NetworkManager()
     
-    private var messageTableView: UITableView = {
+    private lazy var messageTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.register(
             MessageTableViewCell.self,
             forCellReuseIdentifier: MessageTableViewCell.reuseIdentifier)
+        tableView.dataSource = self
         return tableView
     }()
-    
+   
     // MARK: Init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+    init(loggedInUserID: Int, messages: [Message]) {
+        self.loggedInUserID = loggedInUserID
+        self.messages = messages
+        super.init(frame: .zero)
         setUp()
         setUpTableViewConstraints()
         setUpMessageTextView()
-        
-        messageTextView.delegate = self
     }
+    
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setLoggedInUserId(loggedInUserId : Int){
-        self.loggedInUserID = loggedInUserId
-    }
-    
-    func getTableView() -> UITableView {
-        messageTableView
-    }
-    
-    func reloadTableView() {
+    func reloadTableView(messages: [Message]) {
+        self.messages = messages
         messageTableView.reloadData()
     }
     
@@ -84,6 +81,7 @@ final class ChatView: UIView {
     }
     
     private func setUpMessageTextView(){
+        messageTextView.delegate = self
         NSLayoutConstraint.activate([
             messageTextView.topAnchor.constraint(
                 equalTo: messageTableView.bottomAnchor),
@@ -97,10 +95,27 @@ final class ChatView: UIView {
     }
 }
 
+// MARK: - UITableViewDataSource
+extension ChatView: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        messages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
+        
+        let message = messages[indexPath.row]
+        cell.configure(with: message, bublePosition: message.userId != loggedInUserID ? .left : .right)
+        
+        return cell
+    }
+}
+
 // MARK: - TextInputComponentViewDelegate
 extension ChatView: MessageTextViewDelegate {
     func didTapButton(text: String, date: String) {
-        delegate?.didSendMessage(chatView: self, text: text, date: Date(), userId: loggedInUserID)
+        delegate?.didSendMessage(chatView: self, message: Message(userId: loggedInUserID , text: text, date: Date(), isSent: !network.isInternetAvailable()))
     }
 }
 

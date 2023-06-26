@@ -7,31 +7,30 @@
 
 import Foundation
 
-
-final class ChatViewModel {
+class ChatViewModel {
     
-    private (set) var messages = [Message]() 
-
-    let dbManager = CoreDataManager.shared
+    private var messages: [Message] = []
+    private let coreDataManager =  CoreDataManager.shared
     
-    func createMessage(id: Int, text: String, isSent: Bool, complition: @escaping() -> Void) {
-        dbManager.saveMessage(id: id, text: text, date: getDate(), isSent: isSent)
-        let newMessage = dbManager.fetchMessages().last
-        if let message = newMessage {
-            messages.append(message)
-            print(messages)
-            complition()
-        }
+    init() {
+        messages = getAllMessages()
     }
     
-    func fetchMessage() {
-        messages = dbManager.fetchMessages()
+    func getMessages(userID: Int) -> [Message] {
+        messages.filter { isMessageValid(message: $0, userID: userID) }
     }
     
-    private func getDate() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, H:ss"
-        let date = dateFormatter.string(from: Date())
-        return date
+    func saveMessage(message: Message) {
+        messages.append(message)
+        coreDataManager.saveMessage(message: message)
+    }
+    
+    private func getAllMessages() -> [Message] {
+        coreDataManager.fetchMessages()
+    }
+    
+    private func isMessageValid (message: Message, userID: Int) -> Bool {
+        !message.isSent || message.userId == userID
     }
 }
+

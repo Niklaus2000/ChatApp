@@ -7,41 +7,24 @@
 
 import UIKit
 
-struct User {
-    var userId: Int
-    let text: String?
-    var date: String?
-
-//    init(message: Message) {
-//        userId = Int(message.userId)
-//        text = message.text ?? ""
-//        date = message.date ?? ""
-//    }
-}
-
 final class ChatViewController: UIViewController, UITextViewDelegate {
     // MARK: Properties
     private lazy var mainStackView = UIStackView(arrangedSubviews: [topMessageView, dividerView, bottomMessageView])
-    private let topMessageView = ChatView()
-    private let bottomMessageView = ChatView()
+    private let topMessageView: ChatView
+    private let bottomMessageView: ChatView
     private let switchButtonView = SwitchModeView()
-    private let viewModel = ChatViewModel()
+    private var viewModel: ChatViewModel
     private let dividerView = UIView()
-    private let network = NetworkManager()
     private var statusBarStyle: UIStatusBarStyle = .darkContent
-    
-    private var messages: [User] = []
     
     // MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUp()
         setUpStackView()
         setUpStackViewConstraints()
         setUpSwitchButtonViewConstraints()
         setUpDiverViewConstraints()
-        viewModel.fetchMessage()
         saveBackGroundColor()
         setUpDelegate()
     }
@@ -53,7 +36,20 @@ final class ChatViewController: UIViewController, UITextViewDelegate {
             setUpBackgroundColor(with: color)
         }
     }
-
+    
+    // MARK: Init
+    init() {
+        viewModel = ChatViewModel()
+        self.topMessageView = ChatView(loggedInUserID: 1, messages: viewModel.getMessages(userID: 1))
+        self.bottomMessageView = ChatView(loggedInUserID: 2, messages: viewModel.getMessages(userID: 2))
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: StatusBar Style
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return statusBarStyle
@@ -79,8 +75,7 @@ final class ChatViewController: UIViewController, UITextViewDelegate {
     // MARK: Set UP Delegate
     private func setUpDelegate() {
         [topMessageView, bottomMessageView].forEach {
-            $0.delegate  = self
-            $0.configTableView(dataSource: self, delegate: self)
+            $0.delegate = self
         }
     }
     
@@ -164,252 +159,17 @@ extension ChatViewController: SwitchModeViewDelegate {
         }
     }
 }
-/// MARK:  - Romlitac vmuSaob
-// MARK: -  ChatViewDelegate
-//extension ChatViewController: ChatViewDelegate {
-//    func didSendMessage(chatView: ChatView, text: String, date: Date, userId: Int) {
-//        if chatView === topMessageView {
-//            configureTableView(id: 1, text: text, isTop: true)
-//        } else if chatView === bottomMessageView {
-//            configureTableView(id: 2, text: text, isTop: false)
-//        }
-//    }
-//
-////    private func configureTableView(id: Int, text: String, isTop: Bool) {
-////        let isSent = !network.isInternetAvailable()
-////        viewModel.createMessage(id: id, text: text, isSent: isSent) { [weak self] in
-////            self?.reloadAppropriateTableViews(isSent: isSent, isTop: isTop)
-////            //self?.bottomMessageView.reloadTableView()
-////            //self?.topMessageView.reloadTableView()
-////        }
-////    }
-//    private func configureTableView(id: Int, text: String, isTop: Bool) {
-//        let isSent = !network.isInternetAvailable()
-//        viewModel.createMessage(id: id, text: text, isSent: isSent) { [weak self] in
-//            self?.reloadAppropriateTableViews(isSent: isSent, isTop: isTop)
-//            if isSent && isTop {
-//                let newMessage = User(userId: id, text: text, date: Date().description)
-//                self?.messages.insert(newMessage, at: 0)
-//                self?.topMessageView.reloadTableView()
-//            }
-//        }
-//    }
-//
-//
-//    private func reloadAppropriateTableViews(isSent: Bool, isTop: Bool) {
-//        if isSent {
-//            topMessageView.reloadTableView()
-//        } else {
-//            topMessageView.reloadTableView()
-//            bottomMessageView.reloadTableView()
-//        }
-//        if !isTop {
-//            bottomMessageView.reloadTableView()
-//        }
-//    }
-//}
-// =======================================
-//extension ChatViewController: ChatViewDelegate {
-//    func didSendMessage(chatView: ChatView, text: String, date: Date, userId: Int) {
-//        if chatView === topMessageView {
-//            configureTableView(id: 1, text: text, isTop: true)
-//        } else if chatView === bottomMessageView {
-//            configureTableView(id: 2, text: text, isTop: false)
-//        }
-//    }
-//
-//    private func configureTableView(id: Int, text: String, isTop: Bool) {
-//        let isSent = !network.isInternetAvailable()
-//
-//        viewModel.createMessage(id: id, text: text, isSent: isSent) { [weak self] in
-//            self?.reloadAppropriateTableViews(isSent: isSent, isTop: isTop)
-//
-//            if isSent && isTop {
-//                let newMessage = User(userId: id, text: text, date: Date().description)
-//                self?.messages.insert(newMessage, at: 0)
-//                self?.topMessageView.reloadTableView()
-//            }
-//        }
-//    }
-//
-//    private func reloadAppropriateTableViews(isSent: Bool, isTop: Bool) {
-//        if isSent {
-//            topMessageView.reloadTableView()
-//
-//            if !isTop {
-//                bottomMessageView.reloadTableView()
-//            }
-//        } else {
-//            topMessageView.reloadTableView()
-//            bottomMessageView.reloadTableView()
-//        }
-//    }
-//}
-//
-//
-//// MARK: - UITableViewDataSource
-//extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        viewModel.messages.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
-//        let message = viewModel.messages[indexPath.row]
-//
-//        cell.configure(with: message, bublePosition: ((tableView == topMessageView.getTableView()) == (message.userId == 1)) ? .right : .left)
-//
-//        return cell
-//    }
-//}
-// ==============================================================
+
 extension ChatViewController: ChatViewDelegate {
-       func didSendMessage(chatView: ChatView, text: String, date: Date, userId: Int) {
-           if chatView === topMessageView {
-               configureTableView(id: 1, text: text, isTop: true)
-           } else if chatView === bottomMessageView {
-               configureTableView(id: 2, text: text, isTop: false)
-           }
-       }
-
-    private func configureTableView(id: Int, text: String, isTop: Bool) {
-            let isSent = network.isInternetAvailable()
-            viewModel.createMessage(id: id, text: text, isSent: isSent) { [weak self] in
-                guard let self = self else { return }
-                let newMessage = User(userId: id, text: text, date: Date().description)
-                if isSent && isTop {
-                    self.messages.insert(newMessage, at: 0)
-                    self.topMessageView.reloadTableView()
-                } else if isSent && !isTop {
-                    self.messages.append(newMessage)
-                    self.topMessageView.reloadTableView()
-                }
-            }
-        }
-    
-//    private func configureTableView(id: Int, text: String, isTop: Bool) {
-//        let isSent = network.isInternetAvailable()
-//        viewModel.createMessage(id: id, text: text, isSent: isSent) { [weak self] in
-//            guard let self = self else { return }
-//            let newMessage = User(userId: id, text: text, date: Date().description)
-//
-//            if isSent && isTop {
-//                self.messages = self.messages.filter { $0.userId != id }
-//                self.messages.insert(newMessage, at: 0)
-//                self.topMessageView.reloadTableView()
-//            } else if isSent && !isTop {
-//                self.messages = self.messages.filter { $0.userId != id }
-//                self.messages.append(newMessage)
-//                self.bottomMessageView.reloadTableView()
-//            } else if !isSent && isTop {
-//                self.messages = self.messages.filter { $0.userId != id }
-//                self.messages.append(newMessage)
-//                self.topMessageView.reloadTableView()
-//            } else if !isSent && !isTop {
-//                self.messages = self.messages.filter { $0.userId != id }
-//                self.messages.insert(newMessage, at: 0)
-//                self.bottomMessageView.reloadTableView()
-//            }
-//        }
-//    }
-
-
-   }
-
-// MARK: - UITableViewDataSource
-extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.messages.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
-        let message = viewModel.messages[indexPath.row]
-
-        cell.configure(with: message, bublePosition: ((tableView == topMessageView.getTableView()) == (message.userId == 1)) ? .right : .left)
-
-        return cell
+    func didSendMessage(chatView: ChatView, message: Message) {
+        viewModel.saveMessage(message: message)
+        self.topMessageView.reloadTableView(messages: viewModel.getMessages(userID: 1))
+        self.bottomMessageView.reloadTableView(messages: viewModel.getMessages(userID: 2))
     }
 }
-///====================================
 
 
 
 
 
-// MARK: - UITableViewDataSource
-//extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        viewModel.messages.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
-//        let message = viewModel.messages[indexPath.row]
-//
-//        cell.configure(with: message, bublePosition: ((tableView == topMessageView.getTableView()) == (message.userId == 1)) ? .right : .left)
-//
-//        return cell
-//    }
-//}
 
-
-//======================================
-
-//extension ChatViewController: ChatViewDelegate {
-//    func didSendMessage(chatView: ChatView, text: String, date: Date, userId: Int) {
-//        if chatView === topMessageView {
-//            configureTableView(id: 1, text: text, isTop: true)
-//        } else if chatView === bottomMessageView {
-//            configureTableView(id: 2, text: text, isTop: false)
-//        }
-//    }
-//
-//    private func configureTableView(id: Int, text: String, isTop: Bool) {
-//        let isSent = !network.isInternetAvailable()
-//        viewModel.createMessage(id: id, text: text, isSent: isSent) { [weak self] in
-//            self?.reloadAppropriateTableViews(isSent: isSent, isTop: isTop)
-//        }
-//    }
-//
-//    private func reloadAppropriateTableViews(isSent: Bool, isTop: Bool) {
-//        if isSent && isTop {
-//            topMessageView.reloadTableView()
-//        } else if isSent && !isTop {
-//            bottomMessageView.reloadTableView()
-//        }
-//    }
-//}
-//
-//
-//// MARK: - UITableViewDataSource
-//extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if tableView == topMessageView.getTableView() {
-//            return viewModel.messages.filter { $0.userId == 1 }.count
-//        } else if tableView == bottomMessageView.getTableView() {
-//            return viewModel.messages.filter { $0.userId != 1 }.count
-//        }
-//        return 0
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: MessageTableViewCell.reuseIdentifier, for: indexPath) as! MessageTableViewCell
-//
-//        if tableView == topMessageView.getTableView() {
-//            let topMessages = viewModel.messages.filter { $0.userId == 1 }
-//            let message = topMessages[indexPath.row]
-//            cell.configure(with: message, bublePosition: .right)
-//        } else if tableView == bottomMessageView.getTableView() {
-//            let bottomMessages = viewModel.messages.filter { $0.userId != 1 }
-//            let message = bottomMessages[indexPath.row]
-//            cell.configure(with: message, bublePosition: .left)
-//        }
-//
-//        return cell
-//    }
-//}
-//
-//
-//
-//

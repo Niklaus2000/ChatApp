@@ -9,30 +9,29 @@ import Foundation
 import CoreData
 
 final class CoreDataManager {
-    
     // MARK: Properties
     static let shared = CoreDataManager()
-    let shared = NetworkManager()
     let context = AppDelegate.sharedAppDelegate.coreDataStack.managedContext
-    
+
     // MARK: Methods
     func fetchMessages() -> [Message] {
-        var messages = [Message]()
+        var message = [Message]()
         do {
-            let fetchRequest = NSFetchRequest<Message>(entityName: "Message")
-            messages = try context.fetch(fetchRequest)
+            let fetchRequest = NSFetchRequest<MessageEntity>(entityName: "MessageEntity")
+            let messages = try context.fetch(fetchRequest)
+            message = messages.map { Message(userId: Int($0.userId), text: $0.text ?? "", date: $0.date ?? Date() , isSent: $0.isSent) }
         } catch let error as NSError {
             print("Failed to fetch messages: \(error)")
         }
-        return messages
+        return message
     }
 
-    func saveMessage(id: Int, text: String, date: String, isSent: Bool) {    
-        let message = Message(context: context)
-        message.userId = Int16(id)
-        message.text = text
-        message.date = date
-        message.isSent = isSent
+    func saveMessage(message: Message) {
+        let message = MessageEntity(context: context)
+        message.userId = Int16(message.userId)
+        message.text = message.text
+        message.date = message.date
+        message.isSent = message.isSent
         do {
             try context.save()
         } catch let error as NSError {
