@@ -8,14 +8,13 @@
 import Foundation
 
 extension String {
-    func processTextAndSendMessage() -> String {
-         let trimmedText = trimmingCharacters(in: .whitespacesAndNewlines)
-         let lines = trimmedText.components(separatedBy: "\n")
-         let nonEmptyLines = lines.filter{ !$0.isEmpty }
-         let finalText = nonEmptyLines.joined(separator: "\n")
-        
-        return finalText
-     }
+    var withoutWhiteSpaces: String {
+        return trimmingCharacters(in: .whitespacesAndNewlines)
+            .components(separatedBy: "\n")
+            .filter { !$0.isEmpty }
+            .joined(separator: "\n")
+    }
 }
+
 
 

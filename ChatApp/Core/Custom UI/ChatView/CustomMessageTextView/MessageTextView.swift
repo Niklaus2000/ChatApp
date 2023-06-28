@@ -64,7 +64,7 @@ final class MessageTextView: UIView {
     
     @objc private func didTapSendButton() {
         guard let message = textView.text else { return }
-        let processedMessage = message.processTextAndSendMessage()
+        let processedMessage = message.withoutWhiteSpaces
         if processedMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {return}
         delegate?.didTapButton(text: processedMessage)
         textView.text = ""
