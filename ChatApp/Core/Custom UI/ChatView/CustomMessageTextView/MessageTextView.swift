@@ -63,10 +63,11 @@ final class MessageTextView: UIView {
     }
     
     @objc private func didTapSendButton() {
-          if let message = textView.text {
-              delegate?.didTapButton(text: message)
-              textView.text = ""
-          }
+        guard let message = textView.text else { return }
+        let processedMessage = message.processTextAndSendMessage()
+        if processedMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {return}
+        delegate?.didTapButton(text: processedMessage)
+        textView.text = ""
       }
     
     // MARK: Add subview

@@ -18,12 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-       // let loggedInUserID = 1 // Replace with the actual user ID
-       // let messages = [User]() // Replace with the actual array of messages
-
-        //let viewController = ChatViewController(loggedInUserID: loggedInUserID, messages: messages)
         let viewController = ChatViewController()
-        
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
         window?.backgroundColor = .white

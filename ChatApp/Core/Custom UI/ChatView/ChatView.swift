@@ -97,7 +97,6 @@ final class ChatView: UIView {
 
 // MARK: - UITableViewDataSource
 extension ChatView: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         messages.count
     }
@@ -114,17 +113,9 @@ extension ChatView: UITableViewDataSource {
 
 // MARK: - TextInputComponentViewDelegate
 extension ChatView: MessageTextViewDelegate {
-    
     func didTapButton(text: String) {
-        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        let lines = trimmedText.components(separatedBy: "\n")
-        let nonEmptyLines = lines.filter { !$0.isEmpty }
-        let finalText = nonEmptyLines.joined(separator: "\n")
-        
-        if !finalText.isEmpty {
-            delegate?.didSendMessage(message: Message(userId: loggedInUserID, text: finalText, date: Date(), isSent: !network.isInternetAvailable()))
-        }
-    }
+        delegate?.didSendMessage(message: Message(userId: loggedInUserID, text: text, date: Date(), isSent: !network.isInternetAvailable()))
+      }
 }
 
 

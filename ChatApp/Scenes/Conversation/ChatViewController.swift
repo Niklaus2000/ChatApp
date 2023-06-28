@@ -160,6 +160,7 @@ extension ChatViewController: SwitchModeViewDelegate {
     }
 }
 
+// MARK: - ChatViewDelegate
 extension ChatViewController: ChatViewDelegate {
     func didSendMessage(message: Message) {
         viewModel.saveMessage(message: message)

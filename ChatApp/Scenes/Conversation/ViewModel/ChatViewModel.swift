@@ -11,6 +11,7 @@ class ChatViewModel {
     
     private var messages: [Message] = []
     private let coreDataManager =  CoreDataManager.shared
+    private let networkManager = NetworkManager()
     
     init() {
         messages = getAllMessages()
@@ -29,7 +30,7 @@ class ChatViewModel {
         coreDataManager.fetchMessages()
     }
     
-    private func isMessageValid (message: Message, userID: Int) -> Bool {
+    private func isMessageValid(message: Message, userID: Int) -> Bool {
         !message.isSent || message.userId == userID
     }
 }
