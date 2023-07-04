@@ -13,13 +13,7 @@ protocol ChatViewDelegate: AnyObject {
 
 final class ChatView: UIView {
     
-    // MARK: Property
-    private let messageTextView = MessageTextView()
-    weak var delegate: ChatViewDelegate?
-    var loggedInUserID: Int
-    var messages: [Message]
-    private let network = NetworkManager()
-    
+    // MARK: Component
     private lazy var messageTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
@@ -30,6 +24,13 @@ final class ChatView: UIView {
         tableView.dataSource = self
         return tableView
     }()
+    
+    // MARK: Property
+    private let messageTextView = MessageTextView()
+    weak var delegate: ChatViewDelegate?
+    var loggedInUserID: Int
+    var messages: [Message]
+    
     
     // MARK: Init
     init(loggedInUserID: Int, messages: [Message]) {
@@ -63,6 +64,10 @@ final class ChatView: UIView {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+    }
+    
+    func setUpTypingComponentView(with color: UIColor) {
+        messageTextView.setUpTextView(with: color)
     }
     
     // MARK: Constraint
@@ -114,7 +119,7 @@ extension ChatView: UITableViewDataSource {
 // MARK: - TextInputComponentViewDelegate
 extension ChatView: MessageTextViewDelegate {
     func didTapButton(text: String) {
-        delegate?.didSendMessage(message: Message(userId: loggedInUserID, text: text, date: Date(), isSent: !network.isInternetAvailable()))
+        delegate?.didSendMessage(message: Message(userId: loggedInUserID, text: text, date: Date(), isSent: !NetworkManager.networkManager.isInternetAvailable()))
       }
 }
 

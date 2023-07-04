@@ -70,6 +70,10 @@ final class MessageTextView: UIView {
         textView.text = ""
       }
     
+    func setUpTextView(with color: UIColor) {
+        textView.textColor = color
+    }
+    
     // MARK: Add subview
     private func setUp() {
         addSubview(inputContainerView)
@@ -172,7 +176,6 @@ extension MessageTextView: UITextViewDelegate {
             return
         }
         textView.text = ""
-        textView.textColor = Constants.TextView.lightModeTextColor
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -180,6 +183,5 @@ extension MessageTextView: UITextViewDelegate {
             return
         }
         textView.text = Constants.TextView.text
-        textView.textColor = .white
     }
 }

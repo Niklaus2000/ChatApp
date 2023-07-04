@@ -79,6 +79,7 @@ final class ChatViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    
     // MARK: Constraint
     private func setUpSwitchButtonViewConstraints() {
         switchButtonView.delegate = self
@@ -135,10 +136,12 @@ extension ChatViewController: SwitchModeViewDelegate {
         case .light:
             setUpBackgroundColor(with: Constants.SwitchButtonView.backGroundColor)
             saveBackgroundColor(color: Constants.SwitchButtonView.backGroundColor)
+            setUpMessageViewTextColor(with: .white)
             self.statusBarStyle = .lightContent
         case .dark:
             setUpBackgroundColor(with: .white)
             saveBackgroundColor(color: .white)
+            setUpMessageViewTextColor(with: .black)
             self.statusBarStyle = .darkContent
         }
         self.setNeedsStatusBarAppearanceUpdate()
@@ -156,6 +159,13 @@ extension ChatViewController: SwitchModeViewDelegate {
     private func saveBackgroundColor(color: UIColor) {
         if let colorData = try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false) {
             UserDefaults.standard.set(colorData, forKey: "BackgroundColorKey")
+        }
+    }
+    
+    private func setUpMessageViewTextColor(with color: UIColor) {
+        [topMessageView,
+         bottomMessageView].forEach { messageView in
+            messageView.setUpTypingComponentView(with: color)
         }
     }
 }

@@ -11,7 +11,7 @@ class ChatViewModel {
     
     private var messages: [Message] = []
     private let coreDataManager =  CoreDataManager.shared
-    private let networkManager = NetworkManager()
+   // private let networkManager = NetworkManager()
     
     init() {
         messages = getAllMessages()

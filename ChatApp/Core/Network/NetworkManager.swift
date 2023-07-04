@@ -9,7 +9,7 @@ import Network
 
 final class NetworkManager {
     
-    static  let shared = NetworkManager()
+    static let networkManager = NetworkManager()
     
     func isInternetAvailable() -> Bool {
         let monitor = NWPathMonitor()
