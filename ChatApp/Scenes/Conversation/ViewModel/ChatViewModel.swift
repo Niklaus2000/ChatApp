@@ -11,7 +11,7 @@ class ChatViewModel {
     
     private var messages: [Message] = []
     private let coreDataManager =  CoreDataManager.shared
-   // private let networkManager = NetworkManager()
+    private let networkManager = NetworkManager()
     
     init() {
         messages = getAllMessages()
@@ -21,10 +21,11 @@ class ChatViewModel {
         messages.filter { isMessageValid(message: $0, userID: userID) }
     }
     
-    func saveMessage(message: Message) {
+    func saveMessage(userID: Int, text: String) {
+        let message = Message(userId: userID, text: text, date: Date(), isSent: !networkManager.isInternetAvailable())
         messages.append(message)
         coreDataManager.saveMessage(message: message)
-    }
+       }
     
     private func getAllMessages() -> [Message] {
         coreDataManager.fetchMessages()

@@ -25,16 +25,9 @@ final class ChatViewController: UIViewController, UITextViewDelegate {
         setUpStackViewConstraints()
         setUpSwitchButtonViewConstraints()
         setUpDiverViewConstraints()
-        saveBackGroundColor()
         setUpDelegate()
-    }
-    
-    // MARK: UserDefault
-    private func saveBackGroundColor() {
-        if let colorData = UserDefaults.standard.object(forKey: "BackgroundColorKey") as? Data,
-           let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData) {
-            setUpBackgroundColor(with: color)
-        }
+        loadBackgroundColor()
+        hideKeyboard()
     }
     
     // MARK: Init
@@ -78,7 +71,6 @@ final class ChatViewController: UIViewController, UITextViewDelegate {
             $0.delegate = self
         }
     }
-    
     
     // MARK: Constraint
     private func setUpSwitchButtonViewConstraints() {
@@ -127,33 +119,14 @@ final class ChatViewController: UIViewController, UITextViewDelegate {
                 equalToConstant: Constants.DivederView.height)
         ])
     }
-}
-
-// MARK: - SwitchModeViewDelegate
-extension ChatViewController: SwitchModeViewDelegate {
-    func switchModeView(_ switchModeView: SwitchModeView, didSwitchStateTo state: SwitchModeView.ButtonState) {
-        switch state {
-        case .light:
-            setUpBackgroundColor(with: Constants.SwitchButtonView.backGroundColor)
-            saveBackgroundColor(color: Constants.SwitchButtonView.backGroundColor)
-            setUpMessageViewTextColor(with: .white)
-            self.statusBarStyle = .lightContent
-        case .dark:
-            setUpBackgroundColor(with: .white)
-            saveBackgroundColor(color: .white)
-            setUpMessageViewTextColor(with: .black)
-            self.statusBarStyle = .darkContent
-        }
-        self.setNeedsStatusBarAppearanceUpdate()
-    }
     
-    private func setUpBackgroundColor(with color: UIColor) {
-        [
-            topMessageView,
-            bottomMessageView,
-            view].forEach {
-                $0.backgroundColor = color
-            }
+    // MARK: UserDefaults
+    private func loadBackgroundColor() {
+        if let colorData = UserDefaults.standard.object(forKey: "BackgroundColorKey") as? Data,
+           let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData) {
+            switchButtonView.isSelected = color == Constants.SwitchButtonView.backGroundColor
+            updateAppearance(for: switchButtonView.isSelected)
+        }
     }
     
     private func saveBackgroundColor(color: UIColor) {
@@ -162,22 +135,33 @@ extension ChatViewController: SwitchModeViewDelegate {
         }
     }
     
-    private func setUpMessageViewTextColor(with color: UIColor) {
-        [topMessageView,
-         bottomMessageView].forEach { messageView in
-            messageView.setUpTypingComponentView(with: color)
-        }
+    private func updateAppearance(for isDarkMode: Bool) {
+        let backgroundColor = isDarkMode ? Constants.SwitchButtonView.backGroundColor : .white
+        let textColor = isDarkMode ? UIColor.white : UIColor.black
+        
+        [topMessageView, bottomMessageView, view].forEach { $0.backgroundColor = backgroundColor }
+        [topMessageView, bottomMessageView].forEach { $0.setUpTypingComponentView(with: textColor) }
+    }
+}
+
+// MARK: - SwitchModeViewDelegate
+extension ChatViewController: SwitchModeViewDelegate {
+    func switchModeView(_ switchModeView: SwitchModeView, didSwitchStateTo state: SwitchModeView.ButtonState) {
+        let isDarkMode = state == .dark
+        saveBackgroundColor(color: isDarkMode ? Constants.SwitchButtonView.backGroundColor : .white)
+        updateAppearance(for: isDarkMode)
     }
 }
 
 // MARK: - ChatViewDelegate
 extension ChatViewController: ChatViewDelegate {
-    func didSendMessage(message: Message) {
-        viewModel.saveMessage(message: message)
+    func didSendMessage(userID: Int, text: String) {
+        viewModel.saveMessage(userID: userID, text: text)
         self.topMessageView.reloadTableView(messages: viewModel.getMessages(userID: 1))
         self.bottomMessageView.reloadTableView(messages: viewModel.getMessages(userID: 2))
     }
 }
+
 
 
 
