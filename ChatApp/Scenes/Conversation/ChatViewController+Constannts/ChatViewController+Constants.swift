@@ -35,5 +35,10 @@ extension ChatViewController {
         enum StackView {
             static let bottom: CGFloat = -20
         }
+        
+        enum LocalConstants {
+            static let dark = UIImage(named: "dark_image_view")
+            static let light = UIImage(named: "light_image_view")
+        }
     }
 }

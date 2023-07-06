@@ -2,30 +2,45 @@
 //  ChatViewController.swift
 //  ChatApp
 //
-//  Created by Nika Gogichashvili on 18.04.23.
+//  Created by Nika Gogichashvili on 07.06.23.
 //
 
 import UIKit
 
-final class ChatViewController: UIViewController {
-    
+final class ChatViewController: UIViewController, UITextViewDelegate {
     // MARK: Properties
     private lazy var mainStackView = UIStackView(arrangedSubviews: [topMessageView, dividerView, bottomMessageView])
-    private let topMessageView = MessageView()
-    private let bottomMessageView = MessageView()
+    private let topMessageView: ChatView
+    private let bottomMessageView: ChatView
     private let switchButtonView = SwitchModeView()
+    private var viewModel: ChatViewModel
     private let dividerView = UIView()
     private var statusBarStyle: UIStatusBarStyle = .darkContent
     
     // MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUp()
         setUpStackView()
         setUpStackViewConstraints()
         setUpSwitchButtonViewConstraints()
         setUpDiverViewConstraints()
+        setUpDelegate()
+        loadBackgroundColor()
+        hideKeyboard()
+    }
+    
+    // MARK: Init
+    init() {
+        viewModel = ChatViewModel()
+        self.topMessageView = ChatView(loggedInUserID: 1, messages: viewModel.getMessages(userID: 1))
+        self.bottomMessageView = ChatView(loggedInUserID: 2, messages: viewModel.getMessages(userID: 2))
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: StatusBar Style
@@ -48,6 +63,13 @@ final class ChatViewController: UIViewController {
                 view.addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
             }
+    }
+    
+    // MARK: Set UP Delegate
+    private func setUpDelegate() {
+        [topMessageView, bottomMessageView].forEach {
+            $0.delegate = self
+        }
     }
     
     // MARK: Constraint
@@ -97,30 +119,52 @@ final class ChatViewController: UIViewController {
                 equalToConstant: Constants.DivederView.height)
         ])
     }
+    
+    // MARK: UserDefaults
+    private func loadBackgroundColor() {
+        if let colorData = UserDefaults.standard.object(forKey: "BackgroundColorKey") as? Data,
+           let color = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData) {
+            switchButtonView.isSelected = color == Constants.SwitchButtonView.backGroundColor
+            updateAppearance(for: switchButtonView.isSelected)
+        }
+    }
+    
+    private func saveBackgroundColor(color: UIColor) {
+        if let colorData = try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false) {
+            UserDefaults.standard.set(colorData, forKey: "BackgroundColorKey")
+        }
+    }
+    
+    private func updateAppearance(for isDarkMode: Bool) {
+        let backgroundColor = isDarkMode ? Constants.SwitchButtonView.backGroundColor : .white
+        let textColor = isDarkMode ? UIColor.white : UIColor.black
+        
+        [topMessageView, bottomMessageView, view].forEach { $0.backgroundColor = backgroundColor }
+        [topMessageView, bottomMessageView].forEach { $0.setUpTypingComponentView(with: textColor) }
+    }
 }
 
 // MARK: - SwitchModeViewDelegate
 extension ChatViewController: SwitchModeViewDelegate {
     func switchModeView(_ switchModeView: SwitchModeView, didSwitchStateTo state: SwitchModeView.ButtonState) {
-        switch state {
-        case .light:
-            setUpBackgroundColor(with: Constants.SwitchButtonView.backGroundColor)
-            self.statusBarStyle = .lightContent
-        case .dark:
-            setUpBackgroundColor(with: .white)
-            self.statusBarStyle = .darkContent
-        }
-        self.setNeedsStatusBarAppearanceUpdate()
-    }
-    
-    private func setUpBackgroundColor(with color: UIColor) {
-        [
-            topMessageView,
-            bottomMessageView,
-            view].forEach {
-                $0.backgroundColor = color
-            }
+        let isDarkMode = state == .dark
+        saveBackgroundColor(color: isDarkMode ? Constants.SwitchButtonView.backGroundColor : .white)
+        updateAppearance(for: isDarkMode)
     }
 }
+
+// MARK: - ChatViewDelegate
+extension ChatViewController: ChatViewDelegate {
+    func didSendMessage(userID: Int, text: String) {
+        viewModel.saveMessage(userID: userID, text: text)
+        self.topMessageView.reloadTableView(messages: viewModel.getMessages(userID: 1))
+        self.bottomMessageView.reloadTableView(messages: viewModel.getMessages(userID: 2))
+    }
+}
+
+
+
+
+
 
 
