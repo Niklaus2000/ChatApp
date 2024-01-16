@@ -61,7 +61,7 @@ final class MessageTextView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-
+        
     }
     
     @objc private func didTapSendButton() {
@@ -70,7 +70,7 @@ final class MessageTextView: UIView {
         if processedMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {return}
         delegate?.didTapButton(text: processedMessage)
         textView.text = ""
-      }
+    }
     
     private func addTapGestureRecognizer() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -78,11 +78,11 @@ final class MessageTextView: UIView {
         self.addGestureRecognizer(tapGesture)
         //view.addGestureRecognizer(tapGesture)
     }
-
+    
     @objc private func dismissKeyboard() {
         self.endEditing(true)
     }
-
+    
     
     func setUpTextView(with color: UIColor) {
         textView.textColor = color
@@ -178,26 +178,20 @@ final class MessageTextView: UIView {
     }
 }
 
+
 // MARK: - UITextViewDelegate
 extension MessageTextView: UITextViewDelegate {
-    
     func textViewDidChange(_ textView: UITextView) {
         updateTextViewHeight()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        guard !textView.text.isEmpty else {
-            return
-        }
+        guard textView.text == Constants.TextView.text else { return }
         textView.text = ""
-        
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        guard !textView.text.isEmpty else {
-            return
-        }
+        guard textView.text.isEmpty else { return }
         textView.text = Constants.TextView.text
-        
     }
 }
