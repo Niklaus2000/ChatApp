@@ -30,8 +30,10 @@ final class SwitchModeView: UIButton {
         }), for: .touchUpInside)
     }
     
+    
     // MARK: SwitchMode
     private func switchModeTapped() {
         isSelected.toggle()
-        delegate?.switchModeView(self, didSwitchStateTo: isSelected ? .light : .dark)
-    }}
+        delegate?.switchModeView(self, didSwitchStateTo: isSelected ? .dark : .light)
+    }
+}

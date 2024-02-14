@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol MessageTextViewDelegate: AnyObject {
+    func didTapButton(text: String)
+}
+
 final class MessageTextView: UIView {
     
     // MARK: Views
     private var heightConstraint: NSLayoutConstraint? = nil
+    weak var delegate: MessageTextViewDelegate?
     
     // MARK: Properties
     private lazy var inputContainerView: UIView = {
@@ -37,6 +42,9 @@ final class MessageTextView: UIView {
     private lazy var sendButtonView: UIButton = {
         let sendButton = UIButton()
         sendButton.setImage(Constants.ButtonView.image, for: .normal)
+        sendButton.addAction(UIAction(handler: {[weak self] _ in
+            self?.didTapSendButton()
+        }), for: .touchUpInside)
         return sendButton
     }()
     
@@ -48,10 +56,36 @@ final class MessageTextView: UIView {
         setUpTextViewConstraints()
         setUpButtonViewConstraints()
         updateTextViewHeight()
+        addTapGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        
+    }
+    
+    @objc private func didTapSendButton() {
+        guard let message = textView.text else { return }
+        let processedMessage = message.withoutWhiteSpaces
+        if processedMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {return}
+        delegate?.didTapButton(text: processedMessage)
+        textView.text = ""
+    }
+    
+    private func addTapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        self.addGestureRecognizer(tapGesture)
+        //view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func dismissKeyboard() {
+        self.endEditing(true)
+    }
+    
+    
+    func setUpTextView(with color: UIColor) {
+        textView.textColor = color
     }
     
     // MARK: Add subview
@@ -144,26 +178,20 @@ final class MessageTextView: UIView {
     }
 }
 
+
 // MARK: - UITextViewDelegate
 extension MessageTextView: UITextViewDelegate {
-    
     func textViewDidChange(_ textView: UITextView) {
         updateTextViewHeight()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        guard !textView.text.isEmpty else {
-            return
-        }
+        guard textView.text == Constants.TextView.text else { return }
         textView.text = ""
-        textView.textColor = Constants.TextView.lightModeTextColor
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        guard !textView.text.isEmpty else {
-            return
-        }
+        guard textView.text.isEmpty else { return }
         textView.text = Constants.TextView.text
-        textView.textColor = .white
     }
 }
